@@ -47,6 +47,15 @@ namespace WebAPI.Application.Catalog.Categories
             return category.idCategory;
         }
 
+        public async Task<int> Delete(int idCategory)
+        {
+            var category = await _context.Categories.FindAsync(idCategory);
+            if (category == null) throw new WebAPIException($"Cannot find a category: {idCategory}");
+
+            _context.Categories.Remove(category);
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<List<CategoryVm>> GetAll(string languageId)
         {
             var query = from c in _context.Categories
@@ -62,7 +71,7 @@ namespace WebAPI.Application.Catalog.Categories
 
         public async Task<CategoryVm> GetById(int categoryId, string languageId)
         {
-            var category = await _context.products.FindAsync(categoryId);
+            var category = await _context.Categories.FindAsync(categoryId);
             var categoryTranslation = await _context.CategoryTranslations.FirstOrDefaultAsync(x => x.CategoryId == categoryId && x.LanguageId == languageId);
 
 
@@ -74,10 +83,9 @@ namespace WebAPI.Application.Catalog.Categories
 
             var categoryViewModel = new CategoryVm()
             {
-                Id = category.ProductId,
+                Id = category.idCategory,
                 Name = categoryTranslation.Name,
                 SeoAlias = categoryTranslation.SeoAlias,
-
                 SeoDescription = categoryTranslation.SeoDescription,
                 SeoTitle = categoryTranslation.SeoTitle,
                 LanguageId = categoryTranslation.LanguageId,

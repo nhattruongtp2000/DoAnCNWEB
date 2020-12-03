@@ -18,5 +18,7 @@ namespace WebAPI.AdminApp.Services
         Task<CategoryVm> GetById(int id, string languageId);
 
         Task<bool> UpdateCategory(CategoryUpdateRequest request);
+
+        Task<bool> DeleteCategory(int id);
     }
 }

@@ -58,6 +58,11 @@ namespace WebAPI.AdminApp.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<bool> DeleteCategory(int id)
+        {
+            return await Delete($"/api/categories/" + id);
+        }
+
         public async Task<List<CategoryVm>> GetAll(string languageId)
         {
             return await GetListAsync<CategoryVm>("/api/categories?languageId=" + languageId);

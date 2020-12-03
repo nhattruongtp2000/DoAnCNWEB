@@ -80,5 +80,15 @@ namespace WebAPI.BackendAPI.Controllers
             return Ok();
         }
 
+        //delete
+        [HttpDelete("{CategoryId}")]
+        public async Task<IActionResult> Delete(int CategoryId)
+        {
+            var affectedResult = await _categoryService.Delete(CategoryId);
+            if (affectedResult == 0)
+                return BadRequest();
+            return Ok();
+        }
+
     }
 }

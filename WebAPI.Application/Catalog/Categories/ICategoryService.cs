@@ -19,6 +19,8 @@ namespace WebAPI.Application.Catalog.Categories
 
         Task<int> Update(CategoryUpdateRequest request);
 
+        Task<int> Delete(int idCategory);
+
 
     }
 }

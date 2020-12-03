@@ -105,5 +105,41 @@ namespace WebAPI.AdminApp.Controllers
             return View(request);
         }
 
+        //delete
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            return View(new CategoryDeleteRequest()
+            {
+                Id = id
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(CategoryDeleteRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            var result = await _categoryApiClient.DeleteCategory(request.Id);
+            if (result)
+            {
+                TempData["result"] = "Xóa danh mục thành công";
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Xóa không thành công");
+            return View(request);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
+
+            var result = await _categoryApiClient.GetById(id, languageId);
+            return View(result);
+        }
+
     }
 }
