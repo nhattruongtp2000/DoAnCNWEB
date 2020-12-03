@@ -17,6 +17,13 @@ namespace WebAPI.ViewModels.Catalog.Products
 
         public string LanguageId { set; get; }
 
+        public string idSize { get; set; }
+
+        public string idBrand { get; set; }
+
+        public string idColor { get; set; }
+
+        public string idType { get; set; }
 
         public DateTime dateAdded { get; set; }
 

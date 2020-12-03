@@ -166,6 +166,10 @@ namespace WebAPI.Application.Catalog.Products
                     ViewCount = x.p.ViewCount,
                     detail = x.pt.detail,
                     LanguageId = x.pt.LanguageId,
+                    idBrand = x.p.idBrand,
+                    idColor = x.p.idColor,
+                    idSize = x.p.idSize,
+                    idType = x.p.idType
                 }).ToListAsync();
 
             //4. Select and projection
@@ -201,7 +205,11 @@ namespace WebAPI.Application.Catalog.Products
                 detail = productTranslation.detail,
                 dateAdded = productTranslation.dateAdded, 
                 LanguageId = productTranslation.LanguageId,
-                Categories=categories
+                Categories=categories,
+                idBrand=product.idBrand,
+                idColor=product.idColor,
+                idSize=product.idSize,
+                idType=product.idType
             };
             return productViewModel;
         }
@@ -338,6 +346,10 @@ namespace WebAPI.Application.Catalog.Products
                     LanguageId = x.pt.LanguageId,
                     ViewCount = x.p.ViewCount,
                     detail = x.pt.detail,
+                    idBrand=x.p.idBrand,
+                    idType = x.p.idType,
+                    idSize = x.p.idSize,
+                    idColor = x.p.idColor,
 
                 }).ToListAsync();
 

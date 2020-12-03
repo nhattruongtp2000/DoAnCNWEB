@@ -71,7 +71,19 @@
                                 Giá bán
                             </th>
                             <th>
-                                Số lượng tồn
+                                Số lượng xem
+                            </th>
+                            <th>
+                                idType
+                            </th>
+                            <th>
+                                idSize
+                            </th>
+                            <th>
+                                idBrand
+                            </th>
+                            <th>
+                                idColor
                             </th>
 
                             <th></th>
@@ -80,27 +92,42 @@
                     <tbody>
                         @foreach (var item in Model.Items)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Id)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ProductName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.price)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.salePrice)
-                                </td>
-                                
-                                <td>
-                                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
-                                    @Html.ActionLink("Xem", "Details", new { id = item.Id }) |
-                                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id }) |
-                                    @Html.ActionLink("Gán danh mục", "CategoryAssign", new { id = item.Id }) |
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.salePrice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ViewCount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.idType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.idSize)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.idBrand)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.idColor)
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Xem", "Details", new { id = item.Id }) |
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.Id }) |
+                                @Html.ActionLink("Gán danh mục", "CategoryAssign", new { id = item.Id }) |
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

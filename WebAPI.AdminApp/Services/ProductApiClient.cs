@@ -144,6 +144,10 @@ namespace WebAPI.AdminApp.Services
             requestContent.Add(new StringContent(request.salePrice.ToString()), "salePrice");
             requestContent.Add(new StringContent(request.ProductName.ToString()), "ProductName");
             requestContent.Add(new StringContent(request.detail.ToString()), "detail");
+            requestContent.Add(new StringContent(request.idBrand.ToString()), "idBrand");
+            requestContent.Add(new StringContent(request.idSize.ToString()), "idSize");
+            requestContent.Add(new StringContent(request.idColor.ToString()), "idColor");
+            requestContent.Add(new StringContent(request.idType.ToString()), "idType");
             requestContent.Add(new StringContent(languageId), "languageId");
 
             var response = await client.PutAsync($"/api/products/" + request.Id, requestContent);
