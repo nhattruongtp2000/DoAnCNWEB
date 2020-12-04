@@ -31,7 +31,7 @@ namespace WebAPI.Application.Catalog.Sizes
 
             };
 
-            //Save image
+       
 
             _context.ProductSizes.Add(size);
             await _context.SaveChangesAsync();

@@ -29,6 +29,9 @@ namespace WebAPI.Data.EF
             modelBuilder.ApplyConfiguration(new productPhotosConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductSizeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductBrandConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new productColorConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("UserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -46,13 +49,13 @@ namespace WebAPI.Data.EF
         public DbSet<ordersDetails> ordersDetails { get; set; }
 
         public DbSet<ordersList> ordersLists { get; set; }
-        public DbSet<productBrand> productBrands { get; set; }
+        public DbSet<productBrand> ProductBrands { get; set; }
 
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<ProductInCategory> ProductInCategories { get; set; }
 
-        public DbSet<productColor> productColors { get; set; }
+        public DbSet<productColor> ProductColors { get; set; }
         public DbSet<productDetail> productDetails { get; set; }
         public DbSet<productPhotos> productPhotos { get; set; }
         public DbSet<products> products { get; set; }
@@ -60,7 +63,7 @@ namespace WebAPI.Data.EF
         public DbSet<CategoryTranslation> CategoryTranslations { get; set; }
         public DbSet<Language> Languages { get; set; }
 
-        public DbSet<productTypes> productTypes { get; set; }
+        public DbSet<productTypes> ProductTypes { get; set; }
         public DbSet<rating> ratings { get; set; }
         public DbSet<users> users { get; set; }
         public DbSet<vouchers> vouchers { get; set; }

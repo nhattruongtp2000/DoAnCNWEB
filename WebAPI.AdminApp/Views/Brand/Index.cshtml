@@ -1,8 +1,8 @@
 ﻿@using WebAPI.ViewModels.Common;
-@model PagedResult<WebAPI.ViewModels.Catalog.Categories.CategoryVm>
+@model PagedResult<WebAPI.ViewModels.Catalog.Brands.BrandVm>
 
 @{
-    ViewData["Title"] = "Danh sách sản phẩm";
+    ViewData["Title"] = "Brand";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Scripts{
@@ -13,16 +13,16 @@
     </script>
 }
 <div class="container-fluid">
-    <h1 class="mt-4">Danh sách sản phẩm</h1>
+    <h1 class="mt-4">Danh sách Brand</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-        <li class="breadcrumb-item active">Danh sách thể loại</li>
+        <li class="breadcrumb-item active">Danh sách Brand </li>
     </ol>
     <div class="card mb-12">
         <div class="card-header">
             <div class="row">
                 <div class="col-md-6 col-xs-12">
-                    <a class="btn btn-success" asp-action="Create" asp-controller="Category">Tạo mới</a>
+                    <a class="btn btn-success" asp-action="Create" asp-controller="Brand">Tạo mới</a>
                 </div>
                 <div class="col-md-6 col-xs-12">
                     <form asp-action="Index" method="get">
@@ -32,7 +32,7 @@
                             </div>
                             <div class="cold-md-3">
                                 <button type="submit" class="btn btn-primary">Tìm</button>
-                                <button type="button" onclick="window.location.href='/Category/Index'" class="btn btn-dark">Reset</button>
+                                <button type="button" onclick="window.location.href='/Brand/Index'" class="btn btn-dark">Reset</button>
                             </div>
                         </div>
                     </form>
@@ -54,23 +54,14 @@
                     <thead>
                         <tr>
                             <th>
-                                Mã thể loại
+                                Mã Brand
                             </th>
                             <th>
-                                Tên
+                                Tên Brand
                             </th>
                             <th>
-                                SeoTitle
+                                Chi tiết
                             </th>
-                            <th>
-                                SeoAlias
-                            </th>
-                            <th>
-                                SeoDescription
-                            </th>
-
-
-
                             <th></th>
                         </tr>
                     </thead>
@@ -79,25 +70,17 @@
                         {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Id)
+                                @Html.DisplayFor(modelItem => item.IdBrand)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.SeoTitle)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SeoAlias)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SeoDescription)
+                                @Html.DisplayFor(modelItem => item.Details)
                             </td>
 
-                            <td>
-                                @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink("Xem", "Details", new { id = item.Id }) |
-                                @Html.ActionLink("Xóa", "Delete", new { id = item.Id }) |
+                            <td>                                
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.IdBrand }) 
                             </td>
                         </tr>
                         }

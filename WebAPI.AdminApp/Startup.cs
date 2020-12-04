@@ -51,6 +51,7 @@ namespace WebAPI.AdminApp
             services.AddTransient<IProductApiClient, ProductApiClient>();
             services.AddTransient<ICategoryApiClient, CategoryApiClient>();
             services.AddTransient<ISizeApiClient, SizeApiClient>();
+            services.AddTransient<IBrandApiClient, BrandApiClient>();
 
 
             IMvcBuilder builder = services.AddRazorPages();

@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using WebAPI.Application.Catalog.Brands;
 using WebAPI.Application.Catalog.Categories;
 using WebAPI.Application.Catalog.Products;
 using WebAPI.Application.Catalog.Sizes;
@@ -61,6 +62,7 @@ namespace WebAPI.BackendAPI
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ISizeService, SizeService>();
+            services.AddTransient<IBrandService, BrandService>();
 
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();

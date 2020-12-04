@@ -23,5 +23,9 @@ namespace WebAPI.Data.Entities
         public List<CategoryTranslation> CategoryTranslations { get; set; }
 
         public List<productSize> ProductSizes { get; set; }
+        public List<productBrand> productBrands { get; set; }
+        public List<productColor> productColors { get; set; }
+        public List<productTypes> productTypes { get; set; }
+
     }
 }

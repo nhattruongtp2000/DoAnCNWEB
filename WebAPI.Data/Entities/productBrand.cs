@@ -6,10 +6,8 @@ using System.Text;
 
 namespace WebAPI.Data.Entities
 {
-    [Table("productBrands")]
     public class productBrand
     {
-        [Key]
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
         public string idBrand { get; set; }
@@ -21,6 +19,9 @@ namespace WebAPI.Data.Entities
         public string brandDetail { get; set; }
 
         public virtual ICollection<products> Products { get; set; }
+        public string LanguageId { set; get; }
+
+        public Language Language { get; set; }
 
 
     }
