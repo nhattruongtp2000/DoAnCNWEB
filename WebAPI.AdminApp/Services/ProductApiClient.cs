@@ -50,7 +50,7 @@ namespace WebAPI.AdminApp.Services
         }
 
         public async Task<bool> CreateProduct(ProductCreateRequest request)
-        {
+            {
             var sessions = _httpContextAccessor
                  .HttpContext
                  .Session

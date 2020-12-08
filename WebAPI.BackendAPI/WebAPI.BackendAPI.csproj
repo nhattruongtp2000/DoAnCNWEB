@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="9.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Contracts" Version="3.1.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
@@ -15,6 +16,10 @@
     <ProjectReference Include="..\WebAPI.Data\WebAPI.Data.csproj" />
     <ProjectReference Include="..\WebAPI.Utilities\WebAPI.Utilities.csproj" />
     <ProjectReference Include="..\WebAPI.ViewModels\WebAPI.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\user-content\" />
   </ItemGroup>
 
 </Project>

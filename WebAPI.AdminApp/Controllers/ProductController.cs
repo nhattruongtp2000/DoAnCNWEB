@@ -143,6 +143,10 @@ namespace WebAPI.AdminApp.Controllers
                 salePrice = product.salePrice,
                 ProductName = product.ProductName,
                 detail = product.detail,
+                idBrand=product.idBrand,
+                idColor=product.idColor,
+                idSize=product.idSize,
+                idType=product.idSize
             };
             return View(editVm);
         }

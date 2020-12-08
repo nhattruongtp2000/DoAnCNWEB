@@ -97,14 +97,14 @@ namespace WebAPI.BackendAPI.Controllers
         }
 
         //Images
-        [HttpPost("{idProduct}/images")]
-        public async Task<IActionResult> CreateImage(int idProduct, [FromForm] ProductImageCreateRequest request)
+        [HttpPost("{productId}/images")]
+        public async Task<IActionResult> CreateImage(int productId, [FromForm] ProductImageCreateRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var imageId = await _productService.AddImage(idProduct, request);
+            var imageId = await _productService.AddImage(productId, request);
             if (imageId == 0)
                 return BadRequest();
 
@@ -114,7 +114,7 @@ namespace WebAPI.BackendAPI.Controllers
         }
 
 
-        [HttpPut("{idProduct}/images/{imageId}")]
+        [HttpPut("{productId}/images/{imageId}")]
         public async Task<IActionResult> UpdateImage(int imageId, [FromForm] ProductImageUpdateRequest request)
         {
             if (!ModelState.IsValid)
@@ -129,7 +129,7 @@ namespace WebAPI.BackendAPI.Controllers
         }
 
 
-        [HttpDelete("{idProduct}/images/{imageId}")]
+        [HttpDelete("{productId}/images/{imageId}")]
         public async Task<IActionResult> RemoveImage(int imageId)
         {
             if (!ModelState.IsValid)
@@ -143,8 +143,8 @@ namespace WebAPI.BackendAPI.Controllers
             return Ok();
         }
 
-        [HttpGet("{idProduct}/images/{imageId}")]
-        public async Task<IActionResult> GetImageById(int idProduct, int imageId)
+        [HttpGet("{productId}/images/{imageId}")]
+        public async Task<IActionResult> GetImageById(int productId, int imageId)
         {
             var image = await _productService.GetImageById(imageId);
             if (image == null)

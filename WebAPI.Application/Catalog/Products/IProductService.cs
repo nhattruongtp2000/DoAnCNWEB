@@ -34,7 +34,7 @@ namespace WebAPI.Application.Catalog.Products
 
         Task<ProductImageViewModel> GetImageById(int imageId);
 
-        Task<List<ProductImageViewModel>> GetListImages(int idProduct);
+        //Task<List<ProductImageViewModel>> GetListImages(int idProduct);
 
         Task<PagedResult<ProductVm>> GetAllByCategoryId(string languageId,GetPublicProductPagingRequest request);
 

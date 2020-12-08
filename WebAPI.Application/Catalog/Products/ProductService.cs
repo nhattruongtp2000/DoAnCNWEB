@@ -27,35 +27,27 @@ namespace WebAPI.Application.Catalog.Products
             _storageService = storageService;
         }
 
-      
 
-        public async Task<int> AddImage(int idProduct, ProductImageCreateRequest request)
+
+        public async Task<int> AddImage(int productId, ProductImageCreateRequest request)
         {
-            var ProductPhoto = new productPhotos()
+            var productImage = new productPhotos()
             {
                 Caption = request.Caption,
                 uploadedTime = DateTime.Now,
                 IsDefault = request.IsDefault,
-                idProduct = idProduct,
+                idProduct = productId,
                 SortOrder = request.SortOrder,
-                         
             };
 
             if (request.ImageFile != null)
             {
-                ProductPhoto.ImagePath = await this.SaveFile(request.ImageFile);
-                ProductPhoto.FileSize = request.ImageFile.Length;
+                productImage.ImagePath = await this.SaveFile(request.ImageFile);
+                productImage.FileSize = request.ImageFile.Length;
             }
-            _context.productPhotos.Add(ProductPhoto);
+            _context.productPhotos.Add(productImage);
             await _context.SaveChangesAsync();
-            return ProductPhoto.Id;
-        }
-
-        public async Task AddViewcount(int idProduct)
-        {
-            var product = await _context.products.FindAsync(idProduct);
-            product.ViewCount += 1;
-            await _context.SaveChangesAsync();
+            return productImage.Id;
         }
 
 
@@ -122,7 +114,6 @@ namespace WebAPI.Application.Catalog.Products
             {
                 await _storageService.DeleteFileAsync(image.ImagePath);
             }
-
 
             _context.products.Remove(product);
             return await _context.SaveChangesAsync();
@@ -235,21 +226,21 @@ namespace WebAPI.Application.Catalog.Products
             return viewModel;
         }
 
-        public async  Task<List<ProductImageViewModel>> GetListImages(int idProduct)
-        {
-            return await _context.productPhotos.Where(x => x.idProduct == idProduct)
-               .Select(i => new ProductImageViewModel()
-               {
-                   Caption = i.Caption,
-                   uploadedTime = i.uploadedTime,
-                   FileSize = i.FileSize,
-                   Id = i.Id,
-                   ImagePath = i.ImagePath,
-                   IsDefault = i.IsDefault,
-                   IdProduct = i.idProduct,
-                   SortOrder = i.SortOrder
-               }).ToListAsync();
-        }
+        //public async Task<List<ProductImageViewModel>> GetListImages(int productId)
+        //{
+        //    return await _context.productPhotos.Where(x => x.idProduct == productId)
+        //        .Select(i => new ProductImageViewModel()
+        //        {
+        //            Caption = i.Caption,
+        //            uploadedTime = i.uploadedTime,
+        //            FileSize = i.FileSize,
+        //            Id = i.Id,
+        //            ImagePath = i.ImagePath,
+        //            IsDefault = i.IsDefault,
+        //            IdProduct = i.idProduct,
+        //            SortOrder = i.SortOrder
+        //        }).ToListAsync();
+        //}
 
         public async Task<int> RemoveImage(int imageId)
         {
@@ -271,6 +262,10 @@ namespace WebAPI.Application.Catalog.Products
             productDetails.price = request.price;
             productDetails.detail = request.detail;
             productDetails.salePrice = request.salePrice;
+            product.idBrand = request.idBrand;
+            product.idType = request.idType;
+            product.idSize = request.idSize;
+            product.idColor = request.idColor;
 
             //Save image
             if (request.ThumbnailImage != null)
@@ -391,6 +386,11 @@ namespace WebAPI.Application.Catalog.Products
             }
             await _context.SaveChangesAsync();
             return new ApiSuccessResult<bool>();
+        }
+
+        public Task AddViewcount(int idProduct)
+        {
+            throw new NotImplementedException();
         }
     }
 }
