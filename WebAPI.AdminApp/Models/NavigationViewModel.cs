@@ -11,5 +11,7 @@ namespace WebAPI.AdminApp.Models
         public List<LanguageVm> Languages { get; set; }
 
         public string CurrentLanguageId { get; set; }
+
+        public string ReturnUrl { get; set; }
     }
 }

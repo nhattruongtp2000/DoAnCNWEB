@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;
 using System.IO;
 using WebAPI.ViewModels.Catalog.ProductImages;
+using WebAPI.Utilities.Constants;
 
 namespace WebAPI.Application.Catalog.Products
 {
@@ -53,6 +54,35 @@ namespace WebAPI.Application.Catalog.Products
 
         public async Task<int> Create(ProductCreateRequest request)
         {
+            var languages = _context.Languages;
+            var translations = new List<productDetail>();
+            foreach (var language in languages)
+            {
+                if (language.Id == request.LanguageId)
+                {
+                    translations.Add(new productDetail()
+                    {
+                        ProductName = request.ProductName,
+                        price = request.price,
+                        salePrice = request.salePrice,
+                        detail = request.detail,
+                        dateAdded = DateTime.Now,
+                        LanguageId = request.LanguageId
+                    });
+                }
+                else
+                {
+                    translations.Add(new productDetail()
+                    {
+                        ProductName = SystemConstants.ProductConstants.NA,
+                        price = SystemConstants.ProductConstants.NAint,
+                        salePrice = SystemConstants.ProductConstants.NAint,
+                        detail = SystemConstants.ProductConstants.NA,
+                        dateAdded = DateTime.Now,
+                        LanguageId = language.Id
+                    });
+                }
+            }
             var product = new products()
             {              
                 idSize = request.idSize,
@@ -60,25 +90,12 @@ namespace WebAPI.Application.Catalog.Products
                 idColor = request.idColor,
                 idType = request.idType,
                 ViewCount = 0,
-                productDetails = new List<productDetail>()
-                {
-                     new productDetail()
-                     {
-                         ProductName=request.ProductName,
-                         price=request.price,
-                         salePrice=request.salePrice,
-                         detail=request.detail,
-                         dateAdded=DateTime.Now,
-                         LanguageId = request.LanguageId
-                     }
-                
-            },
+                productDetails = translations,
                 productInCategories = new List<ProductInCategory>()
                 {
                     new ProductInCategory()
                     {
-                        idCategory=request.idCategory,
-                        
+                        idCategory=request.idCategory,                       
                     }
                 }
             };
