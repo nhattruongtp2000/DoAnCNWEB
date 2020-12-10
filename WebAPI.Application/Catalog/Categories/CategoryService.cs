@@ -65,7 +65,9 @@ namespace WebAPI.Application.Catalog.Categories
             return await query.Select(x => new CategoryVm()
             {
                 Id = x.c.idCategory,
-                Name = x.ct.Name
+                Name = x.ct.Name,
+                ParentId=x.c.ParentId
+                
             }).ToListAsync();
         }
 

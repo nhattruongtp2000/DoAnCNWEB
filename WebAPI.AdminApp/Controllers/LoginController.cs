@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
-using WebAPI.AdminApp.Services;
+using WebAPI.ApiIntegration;
 using WebAPI.Utilities.Constants;
 using WebAPI.ViewModels.System.Users;
 

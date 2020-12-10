@@ -16,6 +16,8 @@ namespace WebAPI.ViewModels.Catalog.Products
         public string ProductName { get; set; }
         public string idSize { get; set; }
         public string idBrand { get; set; }
+
+        public bool? IsFeatured { get; set; }
         public string idColor { get; set; }
         public string idType { get; set; }
         public int idCategory { get; set; } //

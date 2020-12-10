@@ -32,6 +32,7 @@ namespace WebAPI.Data.EF
             modelBuilder.ApplyConfiguration(new ProductBrandConfiguration());
             modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
             modelBuilder.ApplyConfiguration(new productColorConfiguration());
+            modelBuilder.ApplyConfiguration(new SlideConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("UserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -67,6 +68,8 @@ namespace WebAPI.Data.EF
         public DbSet<rating> ratings { get; set; }
         public DbSet<users> users { get; set; }
         public DbSet<vouchers> vouchers { get; set; }
+
+        public DbSet<Slide> Slides { get; set; }
 
 
 

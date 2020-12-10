@@ -17,6 +17,11 @@ namespace WebAPI.Utilities.Constants
             public const string BaseAddress = "BaseAddress";
 
         }
+        public class ProductSettings
+        {
+            public const int NumberOfFeaturedProducts = 4;
+            public const int NumberOfLatestProducts = 6;
+        }
     }
 
 }

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WebAPI.AdminApp.Services;
+using WebAPI.ApiIntegration;
 using WebAPI.ViewModels.System.Users;
 
 namespace WebAPI.AdminApp
@@ -86,6 +86,7 @@ namespace WebAPI.AdminApp
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseSession();
             app.UseEndpoints(endpoints =>

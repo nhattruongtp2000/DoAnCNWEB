@@ -392,5 +392,79 @@ namespace WebAPI.Application.Catalog.Products
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<ProductVm>> GetFeaturedProducts(string languageId, int take)
+        {
+            //1. Select join
+            var query = from p in _context.products
+                        join pt in _context.productDetails on p.ProductId equals pt.ProductId
+                        join pic in _context.ProductInCategories on p.ProductId equals pic.ProductId into ppic
+                        //join pi in _context.ProductImages.Where(x => x.IsDefault == true) on p.Id equals pi.ProductId
+                        from pic in ppic.DefaultIfEmpty()
+                        join pi in _context.productPhotos on p.ProductId equals pi.idProduct into ppi
+                        from pi in ppi.DefaultIfEmpty()
+                        join c in _context.Categories on pic.idCategory equals c.idCategory into picc
+                        from c in picc.DefaultIfEmpty()
+                        where pt.LanguageId == languageId && (pi == null || pi.IsDefault == true)
+                        select new { p, pt, pic,pi};
+
+            var data = await query.OrderByDescending(x => x.pt.dateAdded).Take(take)
+                .Select(x => new ProductVm()
+                {
+                    Id = x.p.ProductId,
+                    ProductName = x.pt.ProductName,
+                    dateAdded = x.pt.dateAdded,
+                    
+                    detail = x.pt.detail,
+                    LanguageId = x.pt.LanguageId,
+                    price = x.pt.price,
+                    salePrice = x.pt.salePrice,
+                    idBrand = x.p.idBrand,
+                    idColor = x.p.idColor,
+                    idSize=x.p.idSize,
+                    idType=x.p.idType,
+                    ViewCount = x.p.ViewCount,
+                    ThumbnailImage = x.pi.ImagePath
+                }).ToListAsync();
+
+            return data;
+        }
+
+        public async Task<List<ProductVm>> GetLatestProducts(string languageId, int take)
+        {
+            //1. Select join
+            var query = from p in _context.products
+                        join pt in _context.productDetails on p.ProductId equals pt.ProductId
+                        join pic in _context.ProductInCategories on p.ProductId equals pic.ProductId into ppic
+                        //join pi in _context.ProductImages.Where(x => x.IsDefault == true) on p.Id equals pi.ProductId
+                        from pic in ppic.DefaultIfEmpty()
+                        join pi in _context.productPhotos on p.ProductId equals pi.idProduct into ppi
+                        from pi in ppi.DefaultIfEmpty()
+                        join c in _context.Categories on pic.idCategory equals c.idCategory into picc
+                        from c in picc.DefaultIfEmpty()
+                        where pt.LanguageId == languageId && (pi == null || pi.IsDefault == true)
+                        select new { p, pt, pic, pi };
+
+            var data = await query.OrderByDescending(x => x.pt.dateAdded).Take(take)
+                .Select(x => new ProductVm()
+                {
+                    Id = x.p.ProductId,
+                    ProductName = x.pt.ProductName,
+                    dateAdded = x.pt.dateAdded,
+
+                    detail = x.pt.detail,
+                    LanguageId = x.pt.LanguageId,
+                    price = x.pt.price,
+                    salePrice = x.pt.salePrice,
+                    idBrand = x.p.idBrand,
+                    idColor = x.p.idColor,
+                    idSize = x.p.idSize,
+                    idType = x.p.idType,
+                    ViewCount = x.p.ViewCount,
+                    ThumbnailImage = x.pi.ImagePath
+                }).ToListAsync();
+
+            return data;
+        }
     }
 }

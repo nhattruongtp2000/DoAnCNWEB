@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using WebAPI.AdminApp.Services;
+using WebAPI.ApiIntegration;
 using WebAPI.Utilities.Constants;
 using WebAPI.ViewModels.Catalog.Sizes;
 

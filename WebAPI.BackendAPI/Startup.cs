@@ -23,6 +23,7 @@ using WebAPI.Application.Common;
 using WebAPI.Application.System.Languages;
 using WebAPI.Application.System.Roles;
 using WebAPI.Application.System.Users;
+using WebAPI.Application.Utilities.Slides;
 using WebAPI.Data.EF;
 using WebAPI.Data.Entities;
 using WebAPI.Utilities.Constants;
@@ -63,6 +64,7 @@ namespace WebAPI.BackendAPI
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ISizeService, SizeService>();
             services.AddTransient<IBrandService, BrandService>();
+            services.AddTransient<ISlideService, SlideService>();
 
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();

@@ -21,6 +21,7 @@ namespace WebAPI.ViewModels.Catalog.Products
         public string idCategory { get; set; }
         public string idType { get; set; }
 
+        public bool? IsFeatured { get; set; }
         public string LanguageId { set; get; }
 
         public IFormFile ThumbnailImage { get; set; }

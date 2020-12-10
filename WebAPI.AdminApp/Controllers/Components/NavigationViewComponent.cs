@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.AdminApp.Models;
-using WebAPI.AdminApp.Services;
+using WebAPI.ApiIntegration;
 using WebAPI.Utilities.Constants;
 
 namespace WebAPI.AdminApp.Controllers.Components

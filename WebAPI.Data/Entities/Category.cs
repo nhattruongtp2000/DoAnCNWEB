@@ -14,9 +14,9 @@ namespace WebAPI.Data.Entities
         
         public int SortOrder { set; get; }
         public bool IsShowOnHome { set; get; }
+        public int? ParentId { set; get; }
 
-   
-        
+
 
         public List<ProductInCategory> productInCategories { get; set; }
 

@@ -25,6 +25,8 @@ namespace WebAPI.Data.Entities
         [Column(TypeName = "VARCHAR(200)")]
         public string idType { get; set; }
 
+        public bool? IsFeatured { get; set; }
+
         public int ViewCount { set; get; }
 
         public List<productDetail> productDetails { get; set; }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
-using WebAPI.AdminApp.Services;
+using WebAPI.ApiIntegration;
 using WebAPI.Utilities.Constants;
 using WebAPI.ViewModels.Catalog.Products;
 using WebAPI.ViewModels.Common;
