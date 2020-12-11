@@ -68,11 +68,11 @@ namespace WebAPI.ApiIntegration
             return await GetListAsync<CategoryVm>("/api/categories?languageId=" + languageId);
         }
 
-        public async Task<CategoryVm> GetById(int id, string languageId)
+        public async Task<CategoryVm> GetById(string languageId, int id)
         {
-            var data = await GetAsync<CategoryVm>($"/api/categories/{id}/{languageId}");
+            return  await GetAsync<CategoryVm>($"/api/categories/{id}/{languageId}");
 
-            return data;
+            
         }
 
         public async Task<PagedResult<CategoryVm>> GetCategoriesPagings(GetCategoryPagingRequest request)

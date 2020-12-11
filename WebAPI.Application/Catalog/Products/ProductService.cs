@@ -149,8 +149,10 @@ namespace WebAPI.Application.Catalog.Products
                         from pic in ppic.DefaultIfEmpty()
                         join c in _context.Categories on pic.idCategory equals c.idCategory into picc
                         from c in picc.DefaultIfEmpty()
-                        where pt.LanguageId == request.LanguageId
-                        select new { p, pt, pic};
+                        join pi in _context.productPhotos on p.ProductId equals pi.idProduct into ppi
+                        from pi in ppi.DefaultIfEmpty()
+                        where pt.LanguageId == request.LanguageId && pi.IsDefault == true
+                        select new { p, pt, pic,pi};
             //2. filter
             if (!string.IsNullOrEmpty(request.Keyword))
                 query = query.Where(x => x.pt.ProductName.Contains(request.Keyword));
@@ -177,7 +179,8 @@ namespace WebAPI.Application.Catalog.Products
                     idBrand = x.p.idBrand,
                     idColor = x.p.idColor,
                     idSize = x.p.idSize,
-                    idType = x.p.idType
+                    idType = x.p.idType,
+                    ThumbnailImage=x.pi.ImagePath
                 }).ToListAsync();
 
             //4. Select and projection
@@ -190,9 +193,7 @@ namespace WebAPI.Application.Catalog.Products
             };
             return pagedResult;
         }
-
-
-        
+    
         public async Task<ProductVm> GetById(int productId, string languageId)
         {
             var product = await _context.products.FindAsync(productId);

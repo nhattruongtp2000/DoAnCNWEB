@@ -49,16 +49,16 @@ namespace WebAPI.BackendAPI.Controllers
             if (idCategory == 0)
                 return BadRequest();
 
-            var product = await _categoryService.GetById(idCategory, request.LanguageId);
+            var product = await _categoryService.GetById( request.LanguageId, idCategory);
 
             return CreatedAtAction(nameof(GetById), new { id = idCategory }, product);
         }
 
         //http://localhost:port/category/1
-        [HttpGet("{idCategory}/{languageId}")]
-        public async Task<IActionResult> GetById(int idCategory, string languageId)
+        [HttpGet("{id}/{languageId}")]
+        public async Task<IActionResult> GetById(string languageId,int id)
         {
-            var category = await _categoryService.GetById(idCategory, languageId);
+            var category = await _categoryService.GetById(languageId,id);
             if (category == null)
                 return BadRequest("Cannot find product");
             return Ok(category);

@@ -13,7 +13,6 @@ namespace WebAPI.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -31,9 +30,9 @@ namespace WebAPI.BackendAPI.Controllers
 
         //http://localhost:port/product/1
         [HttpGet("{idProduct}/{languageId}")]
-        public async Task<IActionResult> GetById(int idProduct, string languageId)
+        public async Task<IActionResult> GetById(int idProduct,string languageId)
         {
-            var product = await _productService.GetById(idProduct,  languageId);
+            var product = await _productService.GetById(idProduct,languageId);
             if (product == null)
                 return BadRequest("Cannot find product");
             return Ok(product);

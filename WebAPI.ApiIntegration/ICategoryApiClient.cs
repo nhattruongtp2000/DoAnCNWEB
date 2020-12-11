@@ -15,7 +15,7 @@ namespace WebAPI.ApiIntegration
 
         Task<bool> CreateProduct(CategoryCreateRequest request);
 
-        Task<CategoryVm> GetById(int id, string languageId);
+        Task<CategoryVm> GetById(string languageId, int id);
 
         Task<bool> UpdateCategory(CategoryUpdateRequest request);
 

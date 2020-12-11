@@ -71,28 +71,18 @@ namespace WebAPI.Application.Catalog.Categories
             }).ToListAsync();
         }
 
-        public async Task<CategoryVm> GetById(int categoryId, string languageId)
+        public async Task<CategoryVm> GetById( string languageId, int categoryId)
         {
-            var category = await _context.Categories.FindAsync(categoryId);
-            var categoryTranslation = await _context.CategoryTranslations.FirstOrDefaultAsync(x => x.CategoryId == categoryId && x.LanguageId == languageId);
-
-
-            var categories = await(from c in _context.Categories
-                                   join ct in _context.CategoryTranslations on c.idCategory equals ct.CategoryId
-                                   join pic in _context.ProductInCategories on c.idCategory equals pic.idCategory
-                                   where pic.idCategory == categoryId && ct.LanguageId == languageId
-                                   select ct.Name).ToListAsync();
-
-            var categoryViewModel = new CategoryVm()
+            var query = from c in _context.Categories
+                        join ct in _context.CategoryTranslations on c.idCategory equals ct.CategoryId
+                        where ct.LanguageId == languageId && c.idCategory==categoryId
+                        select new { c, ct };
+            return await query.Select(x => new CategoryVm()
             {
-                Id = category.idCategory,
-                Name = categoryTranslation.Name,
-                SeoAlias = categoryTranslation.SeoAlias,
-                SeoDescription = categoryTranslation.SeoDescription,
-                SeoTitle = categoryTranslation.SeoTitle,
-                LanguageId = categoryTranslation.LanguageId,
-            };
-            return categoryViewModel;
+                Id = x.c.idCategory,
+                Name = x.ct.Name,
+                ParentId = x.c.ParentId
+            }).FirstOrDefaultAsync();
         }
 
         public async Task<PagedResult<CategoryVm>> GetCategoriesPagings(GetCategoryPagingRequest request)

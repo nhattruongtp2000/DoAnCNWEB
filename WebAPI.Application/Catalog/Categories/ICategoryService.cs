@@ -15,7 +15,7 @@ namespace WebAPI.Application.Catalog.Categories
 
         Task<int> Create(CategoryCreateRequest request);
 
-        Task<CategoryVm> GetById(int categoryId, string languageId);
+        Task<CategoryVm> GetById( string languageId, int categoryId);
 
         Task<int> Update(CategoryUpdateRequest request);
 

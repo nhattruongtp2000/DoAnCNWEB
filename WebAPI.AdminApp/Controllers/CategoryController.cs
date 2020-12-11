@@ -75,7 +75,7 @@ namespace WebAPI.AdminApp.Controllers
         {
             var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
 
-            var category = await _categoryApiClient.GetById(id, languageId);
+            var category = await _categoryApiClient.GetById( languageId,id);
             var editVm = new CategoryUpdateRequest()
             {
                 Id = category.Id,
@@ -137,7 +137,7 @@ namespace WebAPI.AdminApp.Controllers
         {
             var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
 
-            var result = await _categoryApiClient.GetById(id, languageId);
+            var result = await _categoryApiClient.GetById(languageId, id);
             return View(result);
         }
 
