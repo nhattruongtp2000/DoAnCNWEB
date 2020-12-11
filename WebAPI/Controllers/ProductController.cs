@@ -22,10 +22,11 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Detail(int id,string culture)
         {
             var product = await _productApiClient.GetById(id, culture);
+
             return View(new ProductDetailViewModel()
             {
                 Product = product,
-                Category = await _categoryApiClient.GetById(culture, id)
+                
             });
         }
 

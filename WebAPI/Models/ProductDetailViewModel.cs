@@ -10,7 +10,7 @@ namespace WebAPI.Models
 {
     public class ProductDetailViewModel
     {
-        public CategoryVm Category { get; set; }
+        
 
         public ProductVm Product { get; set; }
 

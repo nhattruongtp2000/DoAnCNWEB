@@ -165,6 +165,10 @@
     <value>Chi tiết sản phẩm</value>
     <comment>/Product/Detail</comment>
   </data>
+  <data name="products" xml:space="preserve">
+    <value>san-pham</value>
+    <comment>Common</comment>
+  </data>
   <data name="productUrl" xml:space="preserve">
     <value>san-pham</value>
     <comment>Layouts</comment>

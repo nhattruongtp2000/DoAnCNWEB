@@ -22,6 +22,8 @@ namespace WebAPI.Application.Catalog.Products
     {
         private readonly WebApiDbContext _context;
         private readonly IStorageService _storageService;
+        private const string USER_CONTENT_FOLDER_NAME = "user-content";
+
         public ProductService(WebApiDbContext context, IStorageService storageService)
         {
             _context = context;
@@ -204,6 +206,8 @@ namespace WebAPI.Application.Catalog.Products
                                     join pic in _context.ProductInCategories on c.idCategory equals pic.idCategory
                                     where pic.ProductId == productId && ct.LanguageId == languageId
                                     select ct.Name).ToListAsync();
+
+            var image = await _context.productPhotos.Where(x => x.idProduct == productId && x.IsDefault == true).FirstOrDefaultAsync();
             var productViewModel = new ProductVm()
             {
                 Id = product.ProductId,
@@ -218,7 +222,8 @@ namespace WebAPI.Application.Catalog.Products
                 idBrand=product.idBrand,
                 idColor=product.idColor,
                 idSize=product.idSize,
-                idType=product.idType
+                idType=product.idType,
+                ThumbnailImage = image != null ? image.ImagePath : "no-image.jpg"
             };
             return productViewModel;
         }
@@ -330,7 +335,7 @@ namespace WebAPI.Application.Catalog.Products
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
-            return fileName;
+            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
         }
 
         public async Task<PagedResult<ProductVm>> GetAllByCategoryId(string languageId,GetPublicProductPagingRequest request)
