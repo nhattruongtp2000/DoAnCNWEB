@@ -81,7 +81,11 @@ namespace WebAPI.Application.Catalog.Categories
             {
                 Id = x.c.idCategory,
                 Name = x.ct.Name,
-                ParentId = x.c.ParentId
+                SeoAlias=x.ct.SeoAlias,
+                SeoDescription=x.ct.SeoDescription,
+                SeoTitle=x.ct.SeoTitle,
+                ParentId = x.c.ParentId,
+
             }).FirstOrDefaultAsync();
         }
 
