@@ -29,9 +29,9 @@ namespace WebAPI.Data.Entities
         public string interestedIn { get; set; }
         public DateTime lastLogin { get; set; }
 
-        
-     
-        
+        public List<Cart> Carts { get; set; }
+
+
 
     }
 }

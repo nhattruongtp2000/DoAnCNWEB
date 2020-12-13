@@ -37,6 +37,8 @@ namespace WebAPI.Data.Entities
 
         public List<productPhotos> productPhotos { get; set; }
 
+        public List<Cart> Carts { get; set; }
+
         [ForeignKey("idBrand")]
         public virtual productBrand ProductBrand { get; set; }
 

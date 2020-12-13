@@ -33,6 +33,7 @@ namespace WebAPI.Data.EF
             modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
             modelBuilder.ApplyConfiguration(new productColorConfiguration());
             modelBuilder.ApplyConfiguration(new SlideConfiguration());
+            modelBuilder.ApplyConfiguration(new CartConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("UserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -63,6 +64,8 @@ namespace WebAPI.Data.EF
         public DbSet<productSize> ProductSizes { get; set; }
         public DbSet<CategoryTranslation> CategoryTranslations { get; set; }
         public DbSet<Language> Languages { get; set; }
+
+        public DbSet<Cart> Carts { get; set; }
 
         public DbSet<productTypes> ProductTypes { get; set; }
         public DbSet<rating> ratings { get; set; }
