@@ -25,6 +25,16 @@ namespace WebAPI.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult GetListItems()
+        {
+            var session = HttpContext.Session.GetString(SystemConstants.CartSession);
+            List<CartItemViewModel> currentCart = new List<CartItemViewModel>();
+            if (session != null)
+                currentCart = JsonConvert.DeserializeObject<List<CartItemViewModel>>(session);
+            return Ok(currentCart);
+        }
+
         public async Task<IActionResult> AddToCart(int id, string languageId)
         {
             var product = await _productApiClient.GetById(id, languageId);
@@ -46,13 +56,14 @@ namespace WebAPI.Controllers
                 Description = product.detail,
                 Image = product.ThumbnailImage,
                 Name = product.ProductName,
+                Price=product.price,
                 Quantity = quantity
             };
 
             currentCart.Add(cartItem);
 
             HttpContext.Session.SetString(SystemConstants.CartSession, JsonConvert.SerializeObject(currentCart));
-            return Ok();
+            return Ok(currentCart);
         }
     }
 }
