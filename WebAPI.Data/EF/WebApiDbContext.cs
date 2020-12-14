@@ -34,6 +34,8 @@ namespace WebAPI.Data.EF
             modelBuilder.ApplyConfiguration(new productColorConfiguration());
             modelBuilder.ApplyConfiguration(new SlideConfiguration());
             modelBuilder.ApplyConfiguration(new CartConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("UserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -48,9 +50,9 @@ namespace WebAPI.Data.EF
 
         }
 
-        public DbSet<ordersDetails> ordersDetails { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
 
-        public DbSet<ordersList> ordersLists { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<productBrand> ProductBrands { get; set; }
 
         public DbSet<Category> Categories { get; set; }

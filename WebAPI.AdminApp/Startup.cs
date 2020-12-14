@@ -52,7 +52,7 @@ namespace WebAPI.AdminApp
             services.AddTransient<ICategoryApiClient, CategoryApiClient>();
             services.AddTransient<ISizeApiClient, SizeApiClient>();
             services.AddTransient<IBrandApiClient, BrandApiClient>();
-
+            services.AddTransient<IOrderApiClient, OrderApiClient>();
 
             IMvcBuilder builder = services.AddRazorPages();
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");

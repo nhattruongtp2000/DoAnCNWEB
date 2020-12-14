@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Data.EF;
 
 namespace WebAPI.Data.Migrations
 {
     [DbContext(typeof(WebApiDbContext))]
-    partial class WebApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201213134721_updateorder")]
+    partial class updateorder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -346,9 +348,6 @@ namespace WebAPI.Data.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("LanguageId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -356,8 +355,6 @@ namespace WebAPI.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("OrderId", "ProductId");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("ProductId");
 
@@ -849,7 +846,7 @@ namespace WebAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "5a2b6707-b3f9-4507-b581-2d8cfe015d7f",
+                            ConcurrencyStamp = "e3757864-b342-4b52-aea3-7e9dc6b69964",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -937,13 +934,13 @@ namespace WebAPI.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1b7a98f5-816d-4361-b572-fb0e42167d71",
+                            ConcurrencyStamp = "d1f3f95c-e947-48e5-a592-a60d627ec0cb",
                             Email = "nhattruongtp2000@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "nhattruongtp2000@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFAvo1Yof9b/WX7In3uvmneNi7QDZochT5hvdZ9ghLKOG5XvgaUnSaAXXbDOuDwkag==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO212fLjZTgi9kgvVBn3ilmJQqUjTYmnGi62eKPCKH6VtOygOwF+rBnuzqxUMICYyw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -1031,10 +1028,6 @@ namespace WebAPI.Data.Migrations
 
             modelBuilder.Entity("WebAPI.Data.Entities.OrderDetail", b =>
                 {
-                    b.HasOne("WebAPI.Data.Entities.Language", "Language")
-                        .WithMany("orderDetails")
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("WebAPI.Data.Entities.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
@@ -1046,8 +1039,6 @@ namespace WebAPI.Data.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Language");
 
                     b.Navigation("Order");
 
@@ -1207,8 +1198,6 @@ namespace WebAPI.Data.Migrations
                     b.Navigation("Categories");
 
                     b.Navigation("CategoryTranslations");
-
-                    b.Navigation("orderDetails");
 
                     b.Navigation("productBrands");
 

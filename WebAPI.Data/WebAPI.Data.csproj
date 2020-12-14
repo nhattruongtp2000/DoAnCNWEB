@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebAPI.Utilities\WebAPI.Utilities.csproj" />
-    <ProjectReference Include="..\WebAPI.ViewModels\WebAPI.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

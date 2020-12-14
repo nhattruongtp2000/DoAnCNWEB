@@ -31,6 +31,8 @@ namespace WebAPI.Data.Entities
 
         public List<Cart> Carts { get; set; }
 
+        public List<Order> Orders { get; set; }
+
 
 
     }

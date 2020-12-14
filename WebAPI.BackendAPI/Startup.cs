@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebAPI.Application.Catalog.Brands;
 using WebAPI.Application.Catalog.Categories;
+using WebAPI.Application.Catalog.Orders;
 using WebAPI.Application.Catalog.Products;
 using WebAPI.Application.Catalog.Sizes;
 using WebAPI.Application.Common;
@@ -65,6 +66,7 @@ namespace WebAPI.BackendAPI
             services.AddTransient<ISizeService, SizeService>();
             services.AddTransient<IBrandService, BrandService>();
             services.AddTransient<ISlideService, SlideService>();
+            services.AddTransient<IOrderService, OrderService>();
 
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
