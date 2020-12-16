@@ -25,7 +25,7 @@ namespace WebAPI.AdminApp.Controllers
         public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
         {
             var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
-
+            
             var sessions = HttpContext.Session.GetString("Token");
             var request = new GetOrderPagingRequest()
             {
@@ -51,6 +51,30 @@ namespace WebAPI.AdminApp.Controllers
 
             var result = await _orderApiClient.GetById(languageId, id);
             return View(result);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] OrderCreateRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View(request);
+
+            var result = await _orderApiClient.Create(request);
+            if (result)
+            {
+                TempData["result"] = "Thêm mới sản phẩm thành công";
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Thêm sản phẩm thất bại");
+            return View(request);
         }
     }
 }

@@ -15,5 +15,7 @@ namespace WebAPI.ApiIntegration
 
         Task<OrderVm> GetById(string languageId, int id);
 
+        Task<bool> Create(OrderCreateRequest request);
+
     }
 }

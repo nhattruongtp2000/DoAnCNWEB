@@ -3,8 +3,10 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using WebAPI.Utilities.Constants;
 using WebAPI.ViewModels.Common;
 using WebAPI.ViewModels.Orders;
 
@@ -27,6 +29,36 @@ namespace WebAPI.ApiIntegration
             _httpClientFactory = httpClientFactory;
 
         }
+
+        public async Task<bool> Create(OrderCreateRequest request)
+        {
+            var sessions = _httpContextAccessor
+                .HttpContext
+                .Session
+                .GetString(SystemConstants.AppSettings.Token);
+
+            var languageId = _httpContextAccessor.HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
+            var UserName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration[SystemConstants.AppSettings.BaseAddress]);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var requestContent = new MultipartFormDataContent();
+
+            requestContent.Add(new StringContent(request.ProductId.ToString()), "ProductId");
+            requestContent.Add(new StringContent(request.ShipName.ToString()), "ShipName");
+            requestContent.Add(new StringContent(UserName), "UserName");
+            requestContent.Add(new StringContent(request.ShipAddress.ToString()), "ShipAddress");
+            requestContent.Add(new StringContent(languageId), "languageId");
+            requestContent.Add(new StringContent(request.ShipEmail.ToString()), "ShipEmail");
+            requestContent.Add(new StringContent(request.ShipPhoneNumber.ToString()), "ShipPhoneNumber");
+            requestContent.Add(new StringContent(request.Quantity.ToString()), "Quantity");
+            requestContent.Add(new StringContent(request.Price.ToString()), "Price");
+
+            var response = await client.PostAsync($"/api/orders/", requestContent);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<List<OrderVm>> GetAll(string languageId)
         {
             return await GetListAsync<OrderVm>("/api/orders?languageId=" + languageId);

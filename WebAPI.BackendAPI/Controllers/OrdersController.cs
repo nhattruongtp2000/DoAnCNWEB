@@ -24,6 +24,7 @@ namespace WebAPI.BackendAPI.Controllers
         {
             var products = await _orderService.GetAll(languageId);
             return Ok(products);
+            
         }
 
 
@@ -43,5 +44,25 @@ namespace WebAPI.BackendAPI.Controllers
                 return BadRequest("Cannot find product");
             return Ok(category);
         }
+
+        //Create
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] OrderCreateRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var idOrder = await _orderService.Create(request);
+            if (idOrder == 0)
+                return BadRequest();
+
+            var product = await _orderService.GetById(idOrder, request.LanguageId);
+
+            return CreatedAtAction(nameof(GetById), new { id = idOrder }, product);
+        }
+
     }
 }

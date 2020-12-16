@@ -7,7 +7,8 @@ using WebAPI.ViewModels.Common;
 using WebAPI.ViewModels.Orders;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-
+using WebAPI.ViewModels.Catalog.Products;
+using WebAPI.Data.Entities;
 
 namespace WebAPI.Application.Catalog.Orders
 {
@@ -21,6 +22,37 @@ namespace WebAPI.Application.Catalog.Orders
             _context = context;            
         }
 
+        public async Task<int> Create(OrderCreateRequest request)
+        {
+            
+            var order = new Order()
+            {              
+                UserName=request.UserName,
+                ShipAddress=request.ShipAddress,
+                ShipEmail=request.ShipEmail,
+                ShipName=request.ShipName,
+                ShipPhoneNumber=request.ShipPhoneNumber,
+                OrderDate=DateTime.Now,
+                OrderDetails =new List<OrderDetail>()
+                {
+                    new OrderDetail()
+                    {
+                        ProductId=request.ProductId,
+                        Quantity=request.Quantity,
+                        Price=request.Price,
+                        LanguageId = request.LanguageId
+                    }
+                }
+                
+            };
+
+            //Save image
+
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+            return order.Id; 
+        }
+
         public Task<int> Delete(int id)
         {
             throw new NotImplementedException();
@@ -31,14 +63,13 @@ namespace WebAPI.Application.Catalog.Orders
             
             var query = from p in _context.Orders
                         join pt in _context.OrderDetails on p.Id equals pt.OrderId
-                        join ptt in _context.users on p.UserId equals ptt.Id
+                        join ptt in _context.users on p.UserName equals ptt.UserName
                         join c in _context.products on pt.ProductId equals c.ProductId
                         select new { p, pt,ptt,c };
             return await query.Select(x => new OrderVm()
             {
                 Id = x.p.Id,
                 ProductId = x.c.ProductId,
-                UserId = x.ptt.Id,
                 ShipName = x.p.ShipName,
                 ShipAddress = x.p.ShipAddress,
                 ShipEmail = x.p.ShipEmail,
@@ -56,15 +87,16 @@ namespace WebAPI.Application.Catalog.Orders
         {
             var query = from p in _context.Orders
                         join pt in _context.OrderDetails on p.Id equals pt.OrderId
-                        join ptt in _context.users on p.UserId equals ptt.Id
+                        join ptt in _context.users on p.UserName equals ptt.UserName
                         join c in _context.products on pt.ProductId equals c.ProductId
-                        where pt.LanguageId == languageId
+                        where pt.LanguageId == languageId && p.Id==id
                         select new { p, pt, ptt, c };
             return await query.Select(x => new OrderVm()
             {
                 Id = x.p.Id,
+                UserName=x.p.UserName,
+                UserId=x.ptt.Id,
                 ProductId = x.c.ProductId,
-                UserId = x.ptt.Id,
                 ShipName = x.p.ShipName,
                 ShipAddress = x.p.ShipAddress,
                 ShipEmail = x.p.ShipEmail,
@@ -75,12 +107,14 @@ namespace WebAPI.Application.Catalog.Orders
             }).FirstOrDefaultAsync();
         }
 
+        
+
         public async Task<PagedResult<OrderVm>> GetOrdersPagings(GetOrderPagingRequest request)
         {
             //1. Select join
             var query = from p in _context.Orders
                         join pt in _context.OrderDetails on p.Id equals pt.OrderId
-                        join ptt in _context.users on p.UserId equals ptt.Id
+                        join ptt in _context.users on p.UserName equals ptt.UserName
                         join c in _context.products on pt.ProductId equals c.ProductId
                         where pt.LanguageId==request.LanguageId
                         select new { p, pt,ptt,c };
@@ -98,7 +132,6 @@ namespace WebAPI.Application.Catalog.Orders
                 {
                     Id=x.p.Id,
                     ProductId=x.c.ProductId,
-                    UserId=x.ptt.Id,
                     ShipName=x.p.ShipName,
                     ShipAddress=x.p.ShipAddress,
                     ShipEmail=x.p.ShipEmail,

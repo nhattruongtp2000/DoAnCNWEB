@@ -12,6 +12,7 @@ namespace WebAPI.Data.Configuration
         public void Configure(EntityTypeBuilder<users> builder)
         {
             
+
         }
     }
 }

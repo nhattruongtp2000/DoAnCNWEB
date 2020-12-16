@@ -1,7 +1,7 @@
 ﻿@model WebAPI.ViewModels.Orders.OrderVm
 
 @{
-    ViewData["Title"] = "Chi tiết sss";
+    ViewData["Title"] = "Chi tiết ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,7 +14,7 @@
     </ol>
     <div class="card mb-4">
         <div class="card-header">
-            <a class="btn btn-success" asp-action="Order" asp-controller="Category">Về danh sách</a>
+            <a class="btn btn-success" asp-action="Index" asp-controller="Order">Về danh sách</a>
         </div>
 
         <div class="card-body">
@@ -27,16 +27,22 @@
                         @Html.DisplayFor(model => model.Id)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.ProductId)
+                        @Html.DisplayNameFor(model => model.UserName)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.ProductId)
+                        @Html.DisplayFor(model => model.UserName)
                     </dd>
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.UserId)
                     </dt>
                     <dd class="col-sm-10">
                         @Html.DisplayFor(model => model.UserId)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.ProductId)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.ProductId)
                     </dd>
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.ShipName)

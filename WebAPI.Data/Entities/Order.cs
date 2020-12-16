@@ -12,8 +12,10 @@ namespace WebAPI.Data.Entities
     public class Order
     {
         public int Id { set; get; }
+        public string UserName { set; get; }
+
+        public Guid UserId { get; set; }
         public DateTime OrderDate { set; get; }
-        public Guid UserId { set; get; }
         public string ShipName { set; get; }
         public string ShipAddress { set; get; }
         public string ShipEmail { set; get; }
@@ -24,6 +26,6 @@ namespace WebAPI.Data.Entities
 
         public List<OrderDetail> OrderDetails { get; set; }
 
-        public users AppUser { get; set; }
+        
     }
 }
