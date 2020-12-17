@@ -27,7 +27,7 @@ namespace WebAPI.Data.Entities
         public List<productColor> productColors { get; set; }
         public List<productTypes> productTypes { get; set; }
 
-        public List<OrderDetail> orderDetails { get; set; }
+        public List<Order> Orders { get; set; }
 
     }
 }

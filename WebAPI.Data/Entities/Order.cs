@@ -21,11 +21,15 @@ namespace WebAPI.Data.Entities
         public string ShipEmail { set; get; }
         public string ShipPhoneNumber { set; get; }
 
+        public string LanguageId { set; get; }
+
         [DefaultValue(Status.Active)]
         public Status Status { set; get; } = Status.Active;
 
         public List<OrderDetail> OrderDetails { get; set; }
 
-        
+        public Language Language { get; set; }
+
+
     }
 }

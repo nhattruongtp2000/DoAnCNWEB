@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using WebAPI.Data.EF;
 using WebAPI.ViewModels.Common;
 using WebAPI.ViewModels.Orders;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.ViewModels.Catalog.Products;
 using WebAPI.Data.Entities;
+using WebAPI.ViewModels.Sales;
+using WebAPI.Models;
+using Microsoft.AspNetCore.Http;
+using WebAPI.Utilities.Constants;
+using Newtonsoft.Json;
+
+
 
 namespace WebAPI.Application.Catalog.Orders
 {
@@ -16,36 +21,51 @@ namespace WebAPI.Application.Catalog.Orders
     {
 
         private readonly WebApiDbContext _context;
-        
-        public OrderService(WebApiDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public OrderService(WebApiDbContext context, IHttpContextAccessor httpContextAccessor)
         {
-            _context = context;            
+            _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<int> Create(OrderCreateRequest request)
+        public async Task<int> Create(CheckoutRequest request)
         {
-            
-            var order = new Order()
-            {              
-                UserName=request.UserName,
-                ShipAddress=request.ShipAddress,
-                ShipEmail=request.ShipEmail,
-                ShipName=request.ShipName,
-                ShipPhoneNumber=request.ShipPhoneNumber,
-                OrderDate=DateTime.Now,
-                OrderDetails =new List<OrderDetail>()
-                {
-                    new OrderDetail()
-                    {
-                        ProductId=request.ProductId,
-                        Quantity=request.Quantity,
-                        Price=request.Price,
-                        LanguageId = request.LanguageId
-                    }
-                }
-                
-            };
 
+            List<CartItemViewModel> currentCart = new List<CartItemViewModel>();
+            if (request.OrderDetails != null)
+                currentCart = JsonConvert.DeserializeObject<List<CartItemViewModel>>(request.OrderDetails);
+            var orderdetail = new List<OrderDetail>();
+            //foreach (var item in request.OrderDetails)
+            //{
+            //    orderdetail.Add(new OrderDetail()
+            //    {
+            //        ProductId = item.ProductId,
+            //        Quantity = item.Quantity,
+            //        Price=item.Price,
+            //    });
+            //}
+            foreach (var item in currentCart)
+            {
+                orderdetail.Add(new OrderDetail()
+                {
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity,
+                    Price = item.Price,
+                });
+            }
+
+            var order = new Order()
+            {
+                UserName = request.UserName,
+                ShipAddress = request.Address,
+                ShipEmail = request.Email,
+                ShipName = request.Name,
+                ShipPhoneNumber = request.PhoneNumber,
+                OrderDate = DateTime.Now,
+                OrderDetails = orderdetail,
+                LanguageId=request.LanguageId              
+            };            
             //Save image
 
             _context.Orders.Add(order);
@@ -89,7 +109,7 @@ namespace WebAPI.Application.Catalog.Orders
                         join pt in _context.OrderDetails on p.Id equals pt.OrderId
                         join ptt in _context.users on p.UserName equals ptt.UserName
                         join c in _context.products on pt.ProductId equals c.ProductId
-                        where pt.LanguageId == languageId && p.Id==id
+                        where p.LanguageId == languageId && p.Id==id
                         select new { p, pt, ptt, c };
             return await query.Select(x => new OrderVm()
             {
@@ -116,7 +136,7 @@ namespace WebAPI.Application.Catalog.Orders
                         join pt in _context.OrderDetails on p.Id equals pt.OrderId
                         join ptt in _context.users on p.UserName equals ptt.UserName
                         join c in _context.products on pt.ProductId equals c.ProductId
-                        where pt.LanguageId==request.LanguageId
+                        where p.LanguageId==request.LanguageId
                         select new { p, pt,ptt,c };
             //2. filter
             if (!string.IsNullOrEmpty(request.Keyword))

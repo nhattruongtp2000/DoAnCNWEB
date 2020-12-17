@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Application.Catalog.Orders;
 using WebAPI.ViewModels.Orders;
+using WebAPI.ViewModels.Sales;
 
 namespace WebAPI.BackendAPI.Controllers
 {
@@ -48,7 +49,7 @@ namespace WebAPI.BackendAPI.Controllers
         //Create
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Create([FromForm] OrderCreateRequest request)
+        public async Task<IActionResult> Create([FromForm] CheckoutRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -63,6 +64,8 @@ namespace WebAPI.BackendAPI.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = idOrder }, product);
         }
+
+
 
     }
 }

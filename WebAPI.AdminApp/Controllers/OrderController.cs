@@ -59,22 +59,22 @@ namespace WebAPI.AdminApp.Controllers
             return View();
         }
 
-        [HttpPost]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Create([FromForm] OrderCreateRequest request)
-        {
-            if (!ModelState.IsValid)
-                return View(request);
+        //[HttpPost]
+        //[Consumes("multipart/form-data")]
+        //public async Task<IActionResult> Create([FromForm] OrderCreateRequest request)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return View(request);
 
-            var result = await _orderApiClient.Create(request);
-            if (result)
-            {
-                TempData["result"] = "Thêm mới sản phẩm thành công";
-                return RedirectToAction("Index");
-            }
+        //    var result = await _orderApiClient.Create(request);
+        //    if (result)
+        //    {
+        //        TempData["result"] = "Thêm mới sản phẩm thành công";
+        //        return RedirectToAction("Index");
+        //    }
 
-            ModelState.AddModelError("", "Thêm sản phẩm thất bại");
-            return View(request);
-        }
+        //    ModelState.AddModelError("", "Thêm sản phẩm thất bại");
+        //    return View(request);
+        //}
     }
 }

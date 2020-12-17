@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using WebAPI.ApiIntegration;
 using WebAPI.Models;
 using WebAPI.Utilities.Constants;
+using WebAPI.ViewModels.Orders;
 using WebAPI.ViewModels.Sales;
 
 namespace WebAPI.Controllers
@@ -15,9 +16,11 @@ namespace WebAPI.Controllers
     public class CartController : Controller
     {
         private readonly IProductApiClient _productApiClient;
+        private readonly IOrderApiClient _orderApiClient;
 
-        public CartController(IProductApiClient productApiClient)
+        public CartController(IProductApiClient productApiClient, IOrderApiClient orderApiClient)
         {
+            _orderApiClient = orderApiClient;
             _productApiClient = productApiClient;
         }
 
@@ -42,8 +45,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Checkout(CheckoutViewModel request)
+        public async Task<IActionResult> Checkout(CheckoutViewModel request)
         {
+            var session = HttpContext.Session.GetString(SystemConstants.CartSession);
             var model = GetCheckoutViewModel();
             var orderDetails = new List<OrderDetailVm>();
             foreach (var item in model.CartItems)
@@ -51,19 +55,23 @@ namespace WebAPI.Controllers
                 orderDetails.Add(new OrderDetailVm()
                 {
                     ProductId = item.ProductId,
-                    Quantity = item.Quantity
+                    Quantity = item.Quantity,
+                    Price=item.Price,                    
                 });
             }
             var checkoutRequest = new CheckoutRequest()
             {
+                UserName = User.Identity.Name,
                 Address = request.CheckoutModel.Address,
                 Name = request.CheckoutModel.Name,
                 Email = request.CheckoutModel.Email,
                 PhoneNumber = request.CheckoutModel.PhoneNumber,
-                OrderDetails = orderDetails
+                OrderDetails = session,
+                LanguageId=request.CheckoutModel.LanguageId
             };
+           await  _orderApiClient.Create(checkoutRequest);
             //TODO: Add to API
-            TempData["SuccessMsg"] = "Order puschased successful";
+            model.CheckoutModel = checkoutRequest;
             return View(model);
         }
         private CheckoutViewModel GetCheckoutViewModel()
@@ -133,6 +141,28 @@ namespace WebAPI.Controllers
 
             HttpContext.Session.SetString(SystemConstants.CartSession, JsonConvert.SerializeObject(currentCart));
             return Ok(currentCart);
+        }
+
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] CheckoutRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View(request);
+
+
+            var result = await _orderApiClient.Create(new CheckoutRequest()
+            { 
+
+            });
+            if (result)
+            {
+                TempData["result"] = "Thêm mới sản phẩm thành công";
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Thêm sản phẩm thất bại");
+            return View(request);
         }
 
     }

@@ -54,7 +54,7 @@ namespace WebAPI.BackendAPI
             //Declare DI
             services.AddTransient<IStorageService, FileStorageService>();
 
-
+            
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<UserManager<users>, UserManager<users>>();
             services.AddTransient<SignInManager<users>, SignInManager<users>>();
@@ -136,6 +136,7 @@ namespace WebAPI.BackendAPI
                 };
             });
 
+            services.AddHttpContextAccessor();
 
         }
 

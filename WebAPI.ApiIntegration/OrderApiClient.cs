@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using WebAPI.Utilities.Constants;
 using WebAPI.ViewModels.Common;
 using WebAPI.ViewModels.Orders;
+using WebAPI.ViewModels.Sales;
 
 namespace WebAPI.ApiIntegration
 {
@@ -30,31 +31,30 @@ namespace WebAPI.ApiIntegration
 
         }
 
-        public async Task<bool> Create(OrderCreateRequest request)
+        public async Task<bool> Create(CheckoutRequest request)
         {
             var sessions = _httpContextAccessor
                 .HttpContext
                 .Session
                 .GetString(SystemConstants.AppSettings.Token);
 
-            var languageId = _httpContextAccessor.HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
+            var languageId = "vi";
             var UserName = _httpContextAccessor.HttpContext.User.Identity.Name;
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_configuration[SystemConstants.AppSettings.BaseAddress]);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
-
+           
             var requestContent = new MultipartFormDataContent();
-
-            requestContent.Add(new StringContent(request.ProductId.ToString()), "ProductId");
-            requestContent.Add(new StringContent(request.ShipName.ToString()), "ShipName");
+            var cate = new List<string>();
+           
+            requestContent.Add(new StringContent(request.Address.ToString()), "Address");
+            requestContent.Add(new StringContent(request.Name.ToString()), "Name");
             requestContent.Add(new StringContent(UserName), "UserName");
-            requestContent.Add(new StringContent(request.ShipAddress.ToString()), "ShipAddress");
+            requestContent.Add(new StringContent(request.Email.ToString()), "Email");
             requestContent.Add(new StringContent(languageId), "languageId");
-            requestContent.Add(new StringContent(request.ShipEmail.ToString()), "ShipEmail");
-            requestContent.Add(new StringContent(request.ShipPhoneNumber.ToString()), "ShipPhoneNumber");
-            requestContent.Add(new StringContent(request.Quantity.ToString()), "Quantity");
-            requestContent.Add(new StringContent(request.Price.ToString()), "Price");
-
+            requestContent.Add(new StringContent(request.PhoneNumber.ToString()), "PhoneNumber");
+            requestContent.Add(new StringContent(request.OrderDetails.ToString()), "OrderDetails");
+           
             var response = await client.PostAsync($"/api/orders/", requestContent);
             return response.IsSuccessStatusCode;
         }

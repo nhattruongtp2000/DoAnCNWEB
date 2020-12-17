@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.2" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.6.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
@@ -18,7 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WebAPI.Data\WebAPI.Data.csproj" />
     <ProjectReference Include="..\WebAPI.Utilities\WebAPI.Utilities.csproj" />
-    <ProjectReference Include="..\WebAPI.ViewModels\WebAPI.ViewModels.csproj" />
+    <ProjectReference Include="..\WebAPI\WebAPI.csproj" />
   </ItemGroup>
 
 </Project>

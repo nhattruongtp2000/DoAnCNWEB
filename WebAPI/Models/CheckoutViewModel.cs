@@ -11,5 +11,8 @@ namespace WebAPI.Models
         public List<CartItemViewModel> CartItems { get; set; }
 
         public CheckoutRequest CheckoutModel { get; set; }
+
+        
+
     }
 }

@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebAPI.ViewModels.Common;
 using WebAPI.ViewModels.Orders;
+using WebAPI.ViewModels.Sales;
 
 namespace WebAPI.ApiIntegration
 {
@@ -15,7 +16,7 @@ namespace WebAPI.ApiIntegration
 
         Task<OrderVm> GetById(string languageId, int id);
 
-        Task<bool> Create(OrderCreateRequest request);
+        Task<bool> Create(CheckoutRequest request);
 
     }
 }
