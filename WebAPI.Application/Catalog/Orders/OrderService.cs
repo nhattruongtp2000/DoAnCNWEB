@@ -36,15 +36,10 @@ namespace WebAPI.Application.Catalog.Orders
             if (request.OrderDetails != null)
                 currentCart = JsonConvert.DeserializeObject<List<CartItemViewModel>>(request.OrderDetails);
             var orderdetail = new List<OrderDetail>();
-            //foreach (var item in request.OrderDetails)
-            //{
-            //    orderdetail.Add(new OrderDetail()
-            //    {
-            //        ProductId = item.ProductId,
-            //        Quantity = item.Quantity,
-            //        Price=item.Price,
-            //    });
-            //}
+            
+            var user = _context.users.FirstOrDefault(x => x.UserName == request.UserName);
+            var userid = user.Id;
+            
             foreach (var item in currentCart)
             {
                 orderdetail.Add(new OrderDetail()
@@ -64,7 +59,8 @@ namespace WebAPI.Application.Catalog.Orders
                 ShipPhoneNumber = request.PhoneNumber,
                 OrderDate = DateTime.Now,
                 OrderDetails = orderdetail,
-                LanguageId=request.LanguageId              
+                LanguageId=request.LanguageId,
+                UserId=userid               
             };            
             //Save image
 
@@ -97,9 +93,30 @@ namespace WebAPI.Application.Catalog.Orders
                 Quantity = x.pt.Quantity,
                 Price = x.pt.Price,
                 OrderDate = x.p.OrderDate,
-                Status = x.p.Status,
-                
+                Status = x.p.Status,               
+            }).ToListAsync();
+        }
 
+        public async Task<List<OrderVm>> GetAllByUser(string User, string languageId)
+        {
+            var query = from p in _context.Orders
+                        join pt in _context.OrderDetails on p.Id equals pt.OrderId
+                        join ptt in _context.users on p.UserName equals ptt.UserName
+                        join c in _context.products on pt.ProductId equals c.ProductId
+                        where p.UserName==User
+                        select new { p, pt, ptt, c };
+            return await query.Select(x => new OrderVm()
+            {
+                Id = x.p.Id,
+                ProductId = x.c.ProductId,
+                ShipName = x.p.ShipName,
+                ShipAddress = x.p.ShipAddress,
+                ShipEmail = x.p.ShipEmail,
+                ShipPhoneNumber = x.p.ShipPhoneNumber,
+                Quantity = x.pt.Quantity,
+                Price = x.pt.Price,
+                OrderDate = x.p.OrderDate,
+                Status = x.p.Status,
             }).ToListAsync();
         }
 
@@ -136,7 +153,7 @@ namespace WebAPI.Application.Catalog.Orders
                         join pt in _context.OrderDetails on p.Id equals pt.OrderId
                         join ptt in _context.users on p.UserName equals ptt.UserName
                         join c in _context.products on pt.ProductId equals c.ProductId
-                        where p.LanguageId==request.LanguageId
+                        where p.LanguageId==request.LanguageId && ptt.UserName==request.UserName                   
                         select new { p, pt,ptt,c };
             //2. filter
             if (!string.IsNullOrEmpty(request.Keyword))

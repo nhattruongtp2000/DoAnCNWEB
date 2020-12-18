@@ -15,6 +15,8 @@ namespace WebAPI.Application.Catalog.Orders
     {
         Task<List<OrderVm>> GetAll(string languageId);
 
+        Task<List<OrderVm>> GetAllByUser(string User, string languageId);
+
         Task<PagedResult<OrderVm>> GetOrdersPagings(GetOrderPagingRequest request);
 
         Task<int> Create(CheckoutRequest request);

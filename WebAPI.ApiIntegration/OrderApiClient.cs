@@ -40,6 +40,7 @@ namespace WebAPI.ApiIntegration
 
             var languageId = "vi";
             var UserName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_configuration[SystemConstants.AppSettings.BaseAddress]);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
@@ -64,6 +65,11 @@ namespace WebAPI.ApiIntegration
             return await GetListAsync<OrderVm>("/api/orders?languageId=" + languageId);
         }
 
+        public async Task<List<OrderVm>> GetAllByUser(string languageId,string User )
+        {
+            return await GetListAsync<OrderVm>($"/api/orders/{User}/{languageId}");
+        }
+
         public async Task<OrderVm> GetById(string languageId, int id)
         {
             return await GetAsync<OrderVm>($"/api/orders/{id}/{languageId}");
@@ -74,7 +80,7 @@ namespace WebAPI.ApiIntegration
             var data = await GetAsync<PagedResult<OrderVm>>(
                 $"/api/orders/paging?pageIndex={request.PageIndex}" +
                 $"&pageSize={request.PageSize}" +
-                $"&keyword={request.Keyword}&languageId={request.LanguageId}");
+                $"&keyword={request.Keyword}&languageId={request.LanguageId}&UserName={request.UserName}");
 
             return data;
         }

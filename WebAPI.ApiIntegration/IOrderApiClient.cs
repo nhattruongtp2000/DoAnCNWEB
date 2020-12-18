@@ -12,6 +12,8 @@ namespace WebAPI.ApiIntegration
     {
         Task<List<OrderVm>> GetAll(string languageId);
 
+        Task<List<OrderVm>> GetAllByUser(string User,string languageId);
+
         Task<PagedResult<OrderVm>> GetOrdersPagings(GetOrderPagingRequest request);
 
         Task<OrderVm> GetById(string languageId, int id);

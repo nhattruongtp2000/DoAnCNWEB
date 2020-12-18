@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -24,10 +25,7 @@ namespace WebAPI.Controllers
             _productApiClient = productApiClient;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+               
 
         [HttpGet]
         public IActionResult GetListItems()
@@ -69,9 +67,10 @@ namespace WebAPI.Controllers
                 OrderDetails = session,
                 LanguageId=request.CheckoutModel.LanguageId
             };
-           await  _orderApiClient.Create(checkoutRequest);
+            await  _orderApiClient.Create(checkoutRequest);
+            TempData["SuccessMsg"] = "Order puschased successful";
             //TODO: Add to API
-            model.CheckoutModel = checkoutRequest;
+            ClearCart();
             return View(model);
         }
         private CheckoutViewModel GetCheckoutViewModel()
@@ -88,6 +87,49 @@ namespace WebAPI.Controllers
             return checkoutVm;
         }
 
+        [Authorize]
+        public async Task<IActionResult> Details(string culture,string keyword, int pageIndex = 1, int pageSize = 10)
+            {
+            //if (TempData["result"] != null)
+            //{
+            //    ViewBag.SuccessMsg = TempData["result"];
+            //}
+            //user = User.Identity.Name;
+
+            //var result = await _orderApiClient.GetAllByUser(culture, user);
+            //return View(result);
+            var languageId = culture;
+            var sessions = HttpContext.Session.GetString("Token");
+            var request = new GetOrderPagingRequest()
+            {
+                UserName=User.Identity.Name,
+                Keyword = keyword,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                LanguageId = languageId
+            };
+            var data = await _orderApiClient.GetOrdersPagings(request);
+            ViewBag.Keyword = keyword;
+            if (TempData["result"] != null)
+            {
+                ViewBag.SuccessMsg = TempData["result"];
+            }
+
+            return View(data);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> DetailProduct(int id, string culture)
+        {
+            var product = await _productApiClient.GetById(id, culture);
+
+            return View(new ProductDetailViewModel()
+            {
+                Product = product,
+
+            });
+        }
         public async Task<IActionResult> AddToCart(int id, string languageId)
         {
             var product = await _productApiClient.GetById(id, languageId);
@@ -141,6 +183,12 @@ namespace WebAPI.Controllers
 
             HttpContext.Session.SetString(SystemConstants.CartSession, JsonConvert.SerializeObject(currentCart));
             return Ok(currentCart);
+        }
+
+        public IActionResult ClearCart()
+        {
+            HttpContext.Session.Remove(SystemConstants.CartSession);
+            return new OkObjectResult("OK");
         }
 
         [HttpPost]

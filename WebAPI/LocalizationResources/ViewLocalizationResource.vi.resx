@@ -135,7 +135,7 @@
   </data>
   <data name="Delivery" xml:space="preserve">
     <value>Giao hàng</value>
-    <comment>Layouts</comment>
+    <comment>/Cart/Details</comment>
   </data>
   <data name="English" xml:space="preserve">
     <value>Tieng anh</value>
@@ -160,6 +160,10 @@
   <data name="New | Available" xml:space="preserve">
     <value>Có sẵn</value>
     <comment>Common</comment>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>don-hang</value>
+    <comment>/Cart/Details</comment>
   </data>
   <data name="Product Details" xml:space="preserve">
     <value>Chi tiết sản phẩm</value>

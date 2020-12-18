@@ -36,14 +36,25 @@ namespace WebAPI.BackendAPI.Controllers
             return Ok(order);
         }
 
+
+        //http://localhost:port/category/1
+        [HttpGet("de/{User}/{languageId}")]
+        public async Task<IActionResult> GetAllByUser(string User, string languageId)
+        {
+            var get = await _orderService.GetAllByUser(User, languageId);
+            if (get == null)
+                return BadRequest("Cannot find product");
+            return Ok(get);
+        }
+
         //http://localhost:port/category/1
         [HttpGet("{id}/{languageId}")]
         public async Task<IActionResult> GetById(string languageId, int id)
         {
-            var category = await _orderService.GetById(id, languageId);
-            if (category == null)
+            var get = await _orderService.GetById(id, languageId);
+            if (get == null)
                 return BadRequest("Cannot find product");
-            return Ok(category);
+            return Ok(get);
         }
 
         //Create

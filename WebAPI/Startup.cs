@@ -141,6 +141,14 @@ namespace WebAPI
                   });
 
                 endpoints.MapControllerRoute(
+                  name: "Details User Vn",
+                  pattern: "{culture}/don-hang/{id}", new
+                  {
+                      controller = "Cart",
+                      action = "Details"
+                  });
+
+                endpoints.MapControllerRoute(
                      name: "default",
                      pattern: "{culture=vi}/{controller=Home}/{action=Index}/{id?}");
             });

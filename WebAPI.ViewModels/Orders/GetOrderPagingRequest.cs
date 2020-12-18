@@ -12,5 +12,7 @@ namespace WebAPI.ViewModels.Orders
         public int OrderId { get; set; }
 
         public string LanguageId { get; set; }
+
+        public string  UserName { get; set; }
     }
 }

@@ -133,11 +133,11 @@ namespace WebAPI.AdminApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details()
         {
             var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
 
-            var result = await _categoryApiClient.GetById(languageId, id);
+            var result = await _categoryApiClient.GetAll(languageId);
             return View(result);
         }
 
