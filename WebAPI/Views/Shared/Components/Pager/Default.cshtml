@@ -1,4 +1,29 @@
 ﻿@model WebAPI.ViewModels.Common.PagedResultBase
+
+<head>
+    <style>
+        .pagination{
+            float:left;
+            color:blue;
+            background-color:#ffffff;
+            
+       }
+            .pagination li {
+                display: inline-block;
+                border-style: groove;
+                font-style: oblique;
+                font-size: 16px;
+                color:blue;
+            }
+
+        
+
+
+
+    </style>
+
+</head>
+
 @{
     //pageIndex=?&keyword=?
     var urlTemplate = Url.Action() + "?page={0}";
@@ -22,8 +47,8 @@
         }
     }
 
-    var startIndex = Math.Max(Model.PageIndex - 3, 1);
-    var finishIndex = Math.Min(Model.PageIndex + 3, Model.PageCount);
+    var startIndex = Math.Max(Model.PageIndex - 5, 1);
+    var finishIndex = Math.Min(Model.PageIndex + 5, Model.PageCount);
 }
 
 @if (Model.PageCount > 1)

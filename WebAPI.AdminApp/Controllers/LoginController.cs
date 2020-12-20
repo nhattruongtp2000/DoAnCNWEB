@@ -49,20 +49,28 @@ namespace WebAPI.AdminApp.Controllers
                 return View();  
             }
 
-            var userPrincipal = this.ValidateToken(result.ResultObj);
-            var authProperties = new AuthenticationProperties
+            if (request.UserName == "admin")
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                IsPersistent = false
-            };
-            HttpContext.Session.SetString(SystemConstants.AppSettings.DefaultLanguageId, _configuration["DefaultLanguageId"]);
-            HttpContext.Session.SetString(SystemConstants.AppSettings.Token, result.ResultObj);
-            await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        userPrincipal,
-                        authProperties);
+                var userPrincipal = this.ValidateToken(result.ResultObj);
+                var authProperties = new AuthenticationProperties
+                {
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+                    IsPersistent = false
+                };
+                HttpContext.Session.SetString(SystemConstants.AppSettings.DefaultLanguageId, _configuration["DefaultLanguageId"]);
+                HttpContext.Session.SetString(SystemConstants.AppSettings.Token, result.ResultObj);
+                await HttpContext.SignInAsync(
+                            CookieAuthenticationDefaults.AuthenticationScheme,
+                            userPrincipal,
+                            authProperties);
 
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("sai", result.Message);
+                return View();
+            }
         }
 
         private ClaimsPrincipal ValidateToken(string jwtToken)

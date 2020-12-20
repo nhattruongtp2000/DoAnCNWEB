@@ -189,6 +189,30 @@ namespace WebAPI.Data.Migrations
                             idCategory = 2,
                             IsShowOnHome = true,
                             SortOrder = 2
+                        },
+                        new
+                        {
+                            idCategory = 3,
+                            IsShowOnHome = true,
+                            SortOrder = 3
+                        },
+                        new
+                        {
+                            idCategory = 4,
+                            IsShowOnHome = true,
+                            SortOrder = 4
+                        },
+                        new
+                        {
+                            idCategory = 5,
+                            IsShowOnHome = true,
+                            SortOrder = 5
+                        },
+                        new
+                        {
+                            idCategory = 6,
+                            IsShowOnHome = true,
+                            SortOrder = 6
                         });
                 });
 
@@ -270,6 +294,36 @@ namespace WebAPI.Data.Migrations
                             SeoAlias = "women-shirt",
                             SeoDescription = "The shirt products for women",
                             SeoTitle = "The shirt products for women"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 3,
+                            LanguageId = "vi",
+                            Name = "Máy ảnh",
+                            SeoAlias = "may-anh",
+                            SeoDescription = "may anh",
+                            SeoTitle = "may anh"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 4,
+                            LanguageId = "vi",
+                            Name = "Giày",
+                            SeoAlias = "giay",
+                            SeoDescription = "giay nam",
+                            SeoTitle = "giay nam"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 5,
+                            LanguageId = "vi",
+                            Name = "Quần nam",
+                            SeoAlias = "quan-nam",
+                            SeoDescription = "quan-nam",
+                            SeoTitle = "quan-nam"
                         });
                 });
 
@@ -389,6 +443,56 @@ namespace WebAPI.Data.Migrations
                         {
                             idCategory = 1,
                             ProductId = 1
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 4
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 5
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 6
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 7
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 8
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 9
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 11
                         });
                 });
 
@@ -516,12 +620,14 @@ namespace WebAPI.Data.Migrations
                         new
                         {
                             idBrand = "1",
+                            LanguageId = "vi",
                             brandDetail = "Logo",
                             brandName = "Logo"
                         },
                         new
                         {
                             idBrand = "2",
+                            LanguageId = "vi",
                             brandDetail = "Company",
                             brandName = "Company"
                         });
@@ -548,13 +654,15 @@ namespace WebAPI.Data.Migrations
                     b.HasData(
                         new
                         {
-                            idColor = "ffffff",
-                            colorName = "While"
+                            idColor = "Red",
+                            LanguageId = "vi",
+                            colorName = "Red"
                         },
                         new
                         {
-                            idColor = "Red",
-                            colorName = "Red"
+                            idColor = "While",
+                            LanguageId = "vi",
+                            colorName = "While"
                         });
                 });
 
@@ -576,14 +684,14 @@ namespace WebAPI.Data.Migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(200)");
+                        .HasColumnType("NVARCHAR(200)");
 
                     b.Property<DateTime>("dateAdded")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("detail")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(2000)");
+                        .HasColumnType("NVARCHAR(2000)");
 
                     b.Property<DateTime>("expiredSalingDate")
                         .HasColumnType("datetime2");
@@ -593,11 +701,11 @@ namespace WebAPI.Data.Migrations
 
                     b.Property<string>("price")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(200)");
+                        .HasColumnType("NVARCHAR(200)");
 
                     b.Property<string>("salePrice")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(200)");
+                        .HasColumnType("NVARCHAR(200)");
 
                     b.HasKey("idProductDetail");
 
@@ -615,26 +723,143 @@ namespace WebAPI.Data.Migrations
                             idProductDetail = 1,
                             LanguageId = "vi",
                             ProductId = 1,
-                            ProductName = "Shoe",
+                            ProductName = "Ao nam",
                             dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             detail = "goood product",
                             expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             isSaling = false,
-                            price = "1000000",
-                            salePrice = "1000000"
+                            price = "10",
+                            salePrice = "10"
                         },
                         new
                         {
                             idProductDetail = 2,
                             LanguageId = "vi",
                             ProductId = 2,
-                            ProductName = "Pro",
+                            ProductName = "Ao nam",
                             dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             detail = "goood product",
                             expiredSalingDate = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             isSaling = false,
-                            price = "2000000",
-                            salePrice = "1000000"
+                            price = "20",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 3,
+                            LanguageId = "vi",
+                            ProductId = 3,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 4,
+                            LanguageId = "vi",
+                            ProductId = 4,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 5,
+                            LanguageId = "vi",
+                            ProductId = 5,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 6,
+                            LanguageId = "vi",
+                            ProductId = 6,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 7,
+                            LanguageId = "vi",
+                            ProductId = 7,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 8,
+                            LanguageId = "vi",
+                            ProductId = 8,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 9,
+                            LanguageId = "vi",
+                            ProductId = 9,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 10,
+                            LanguageId = "vi",
+                            ProductId = 10,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 11,
+                            LanguageId = "vi",
+                            ProductId = 11,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
                         });
                 });
 
@@ -674,6 +899,129 @@ namespace WebAPI.Data.Migrations
                     b.HasIndex("idProduct");
 
                     b.ToTable("productPhotos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 1,
+                            idProduct = 1,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 2,
+                            idProduct = 2,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 3,
+                            idProduct = 3,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 4,
+                            idProduct = 4,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 5,
+                            idProduct = 5,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 6,
+                            idProduct = 6,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 7,
+                            idProduct = 7,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 7,
+                            idProduct = 8,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 7,
+                            idProduct = 9,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 7,
+                            idProduct = 10,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 7,
+                            idProduct = 11,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Data.Entities.productSize", b =>
@@ -697,13 +1045,27 @@ namespace WebAPI.Data.Migrations
                     b.HasData(
                         new
                         {
-                            idSize = "1",
+                            idSize = "L",
+                            LanguageId = "vi",
                             sizeName = "L"
                         },
                         new
                         {
-                            idSize = "2",
+                            idSize = "M",
+                            LanguageId = "vi",
                             sizeName = "M"
+                        },
+                        new
+                        {
+                            idSize = "XL",
+                            LanguageId = "vi",
+                            sizeName = "XL"
+                        },
+                        new
+                        {
+                            idSize = "XLL",
+                            LanguageId = "vi",
+                            sizeName = "XLL"
                         });
                 });
 
@@ -728,13 +1090,13 @@ namespace WebAPI.Data.Migrations
                     b.HasData(
                         new
                         {
-                            idType = "1",
-                            typeName = "Cheap"
+                            idType = "VIP",
+                            typeName = "Cao cấp"
                         },
                         new
                         {
-                            idType = "2",
-                            typeName = "Expensive"
+                            idType = "NORMAL",
+                            typeName = "Bình Thường"
                         });
                 });
 
@@ -785,18 +1147,99 @@ namespace WebAPI.Data.Migrations
                             ProductId = 1,
                             ViewCount = 0,
                             idBrand = "1",
-                            idColor = "ffffff",
-                            idSize = "1",
-                            idType = "1"
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
                         },
                         new
                         {
                             ProductId = 2,
                             ViewCount = 0,
                             idBrand = "1",
-                            idColor = "ffffff",
-                            idSize = "1",
-                            idType = "1"
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 6,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 7,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 8,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 9,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 10,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 11,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
                         });
                 });
 
@@ -855,7 +1298,7 @@ namespace WebAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "fdc8eda1-43bc-4dc6-8666-418f864aed1b",
+                            ConcurrencyStamp = "6bad0467-cb6e-4859-a9b6-952a3855185c",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -943,13 +1386,13 @@ namespace WebAPI.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "050853e1-0219-4042-8b6c-c18dee0f5ac3",
+                            ConcurrencyStamp = "b310241e-46ef-4319-a026-680c703d81f8",
                             Email = "nhattruongtp2000@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "nhattruongtp2000@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJzo3jQrTTctRHBNEUl6NMb454QIzQ8HPkCdropF5bvd7HgsFcfv6yFbrH6dxwIrAw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDb5+2IEpdNULojnkwej4f/+GewwAiZxC2S/zJd9ypoyU9VvzQwxn+v2m/5NCTRI6g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,

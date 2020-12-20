@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
                 CategoryId = id,
                 PageIndex = page,
                 LanguageId = culture,
-                PageSize = 10
+                PageSize = 9
             });
             return View(new ProductCategoryViewModel()
             {

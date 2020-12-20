@@ -10,8 +10,8 @@ using WebAPI.Data.EF;
 namespace WebAPI.Data.Migrations
 {
     [DbContext(typeof(WebApiDbContext))]
-    [Migration("20201213142725_updateorder2")]
-    partial class updateorder2
+    [Migration("20201219191803_x")]
+    partial class x
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -191,6 +191,30 @@ namespace WebAPI.Data.Migrations
                             idCategory = 2,
                             IsShowOnHome = true,
                             SortOrder = 2
+                        },
+                        new
+                        {
+                            idCategory = 3,
+                            IsShowOnHome = true,
+                            SortOrder = 3
+                        },
+                        new
+                        {
+                            idCategory = 4,
+                            IsShowOnHome = true,
+                            SortOrder = 4
+                        },
+                        new
+                        {
+                            idCategory = 5,
+                            IsShowOnHome = true,
+                            SortOrder = 5
+                        },
+                        new
+                        {
+                            idCategory = 6,
+                            IsShowOnHome = true,
+                            SortOrder = 6
                         });
                 });
 
@@ -272,6 +296,36 @@ namespace WebAPI.Data.Migrations
                             SeoAlias = "women-shirt",
                             SeoDescription = "The shirt products for women",
                             SeoTitle = "The shirt products for women"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 3,
+                            LanguageId = "vi",
+                            Name = "Máy ảnh",
+                            SeoAlias = "may-anh",
+                            SeoDescription = "may anh",
+                            SeoTitle = "may anh"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 4,
+                            LanguageId = "vi",
+                            Name = "Giày",
+                            SeoAlias = "giay",
+                            SeoDescription = "giay nam",
+                            SeoTitle = "giay nam"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 5,
+                            LanguageId = "vi",
+                            Name = "Quần nam",
+                            SeoAlias = "quan-nam",
+                            SeoDescription = "quan-nam",
+                            SeoTitle = "quan-nam"
                         });
                 });
 
@@ -312,6 +366,9 @@ namespace WebAPI.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("LanguageId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
@@ -333,9 +390,17 @@ namespace WebAPI.Data.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("usersId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("usersId");
 
                     b.ToTable("Orders");
                 });
@@ -380,6 +445,36 @@ namespace WebAPI.Data.Migrations
                         {
                             idCategory = 1,
                             ProductId = 1
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 4
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 5
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 6
+                        },
+                        new
+                        {
+                            idCategory = 1,
+                            ProductId = 7
                         });
                 });
 
@@ -507,12 +602,14 @@ namespace WebAPI.Data.Migrations
                         new
                         {
                             idBrand = "1",
+                            LanguageId = "vi",
                             brandDetail = "Logo",
                             brandName = "Logo"
                         },
                         new
                         {
                             idBrand = "2",
+                            LanguageId = "vi",
                             brandDetail = "Company",
                             brandName = "Company"
                         });
@@ -539,13 +636,15 @@ namespace WebAPI.Data.Migrations
                     b.HasData(
                         new
                         {
-                            idColor = "ffffff",
-                            colorName = "While"
+                            idColor = "Red",
+                            LanguageId = "vi",
+                            colorName = "Red"
                         },
                         new
                         {
-                            idColor = "Red",
-                            colorName = "Red"
+                            idColor = "While",
+                            LanguageId = "vi",
+                            colorName = "While"
                         });
                 });
 
@@ -567,14 +666,14 @@ namespace WebAPI.Data.Migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(200)");
+                        .HasColumnType("NVARCHAR(200)");
 
                     b.Property<DateTime>("dateAdded")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("detail")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(2000)");
+                        .HasColumnType("NVARCHAR(2000)");
 
                     b.Property<DateTime>("expiredSalingDate")
                         .HasColumnType("datetime2");
@@ -584,11 +683,11 @@ namespace WebAPI.Data.Migrations
 
                     b.Property<string>("price")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(200)");
+                        .HasColumnType("NVARCHAR(200)");
 
                     b.Property<string>("salePrice")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(200)");
+                        .HasColumnType("NVARCHAR(200)");
 
                     b.HasKey("idProductDetail");
 
@@ -606,26 +705,91 @@ namespace WebAPI.Data.Migrations
                             idProductDetail = 1,
                             LanguageId = "vi",
                             ProductId = 1,
-                            ProductName = "Shoe",
+                            ProductName = "Ao nam",
                             dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             detail = "goood product",
                             expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             isSaling = false,
-                            price = "1000000",
-                            salePrice = "1000000"
+                            price = "10",
+                            salePrice = "10"
                         },
                         new
                         {
                             idProductDetail = 2,
                             LanguageId = "vi",
                             ProductId = 2,
-                            ProductName = "Pro",
+                            ProductName = "Ao nam",
                             dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             detail = "goood product",
                             expiredSalingDate = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             isSaling = false,
-                            price = "2000000",
-                            salePrice = "1000000"
+                            price = "20",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 3,
+                            LanguageId = "vi",
+                            ProductId = 3,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 4,
+                            LanguageId = "vi",
+                            ProductId = 4,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 5,
+                            LanguageId = "vi",
+                            ProductId = 5,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 6,
+                            LanguageId = "vi",
+                            ProductId = 6,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
+                        },
+                        new
+                        {
+                            idProductDetail = 7,
+                            LanguageId = "vi",
+                            ProductId = 7,
+                            ProductName = "Ao nam",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = false,
+                            price = "10",
+                            salePrice = "10"
                         });
                 });
 
@@ -665,6 +829,96 @@ namespace WebAPI.Data.Migrations
                     b.HasIndex("idProduct");
 
                     b.ToTable("productPhotos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 1,
+                            idProduct = 1,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 2,
+                            idProduct = 2,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 3,
+                            idProduct = 3,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 4,
+                            idProduct = 4,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 5,
+                            idProduct = 5,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 6,
+                            idProduct = 6,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 7,
+                            idProduct = 7,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Caption = "Thumbnail image",
+                            FileSize = 53562L,
+                            ImagePath = "/user-content/7d4eec52-45fa-4433-9465-46cf469805e8.jpg",
+                            IsDefault = true,
+                            SortOrder = 8,
+                            idProduct = 8,
+                            uploadedTime = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Data.Entities.productSize", b =>
@@ -688,13 +942,27 @@ namespace WebAPI.Data.Migrations
                     b.HasData(
                         new
                         {
-                            idSize = "1",
+                            idSize = "L",
+                            LanguageId = "vi",
                             sizeName = "L"
                         },
                         new
                         {
-                            idSize = "2",
+                            idSize = "M",
+                            LanguageId = "vi",
                             sizeName = "M"
+                        },
+                        new
+                        {
+                            idSize = "XL",
+                            LanguageId = "vi",
+                            sizeName = "XL"
+                        },
+                        new
+                        {
+                            idSize = "XLL",
+                            LanguageId = "vi",
+                            sizeName = "XLL"
                         });
                 });
 
@@ -719,13 +987,13 @@ namespace WebAPI.Data.Migrations
                     b.HasData(
                         new
                         {
-                            idType = "1",
-                            typeName = "Cheap"
+                            idType = "VIP",
+                            typeName = "Cao cấp"
                         },
                         new
                         {
-                            idType = "2",
-                            typeName = "Expensive"
+                            idType = "NORMAL",
+                            typeName = "Bình Thường"
                         });
                 });
 
@@ -776,18 +1044,72 @@ namespace WebAPI.Data.Migrations
                             ProductId = 1,
                             ViewCount = 0,
                             idBrand = "1",
-                            idColor = "ffffff",
-                            idSize = "1",
-                            idType = "1"
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
                         },
                         new
                         {
                             ProductId = 2,
                             ViewCount = 0,
                             idBrand = "1",
-                            idColor = "ffffff",
-                            idSize = "1",
-                            idType = "1"
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 6,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 7,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
+                        },
+                        new
+                        {
+                            ProductId = 8,
+                            ViewCount = 0,
+                            idBrand = "1",
+                            idColor = "While",
+                            idSize = "L",
+                            idType = "VIP"
                         });
                 });
 
@@ -846,7 +1168,7 @@ namespace WebAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "b7ce6a02-a8be-4b26-83a2-05a507e837a2",
+                            ConcurrencyStamp = "1c9e7121-c783-4fb9-8a47-44193c059702",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -934,13 +1256,13 @@ namespace WebAPI.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "801eebea-d83f-4507-8087-72437fba3c53",
+                            ConcurrencyStamp = "d5ffd5d2-96c7-4435-be03-aa78d8a3fcbc",
                             Email = "nhattruongtp2000@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "nhattruongtp2000@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAELhczEngvqHoJkHQeqtgnGmDwyaDcSe7RFGyu/Ffz8ryOFym2oeBSkJ3z5NS+5GroA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEItJDHzKvh5CAc1pEqk6acZyxI712+LJAUXCtUf6/yArQrROfbmpoEvPNs/E0AMIwQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -1017,13 +1339,15 @@ namespace WebAPI.Data.Migrations
 
             modelBuilder.Entity("WebAPI.Data.Entities.Order", b =>
                 {
-                    b.HasOne("WebAPI.Data.Entities.users", "AppUser")
+                    b.HasOne("WebAPI.Data.Entities.Language", "Language")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LanguageId");
 
-                    b.Navigation("AppUser");
+                    b.HasOne("WebAPI.Data.Entities.users", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("usersId");
+
+                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("WebAPI.Data.Entities.OrderDetail", b =>
@@ -1198,6 +1522,8 @@ namespace WebAPI.Data.Migrations
                     b.Navigation("Categories");
 
                     b.Navigation("CategoryTranslations");
+
+                    b.Navigation("Orders");
 
                     b.Navigation("productBrands");
 

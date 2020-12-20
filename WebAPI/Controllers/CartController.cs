@@ -12,8 +12,10 @@ using WebAPI.Utilities.Constants;
 using WebAPI.ViewModels.Orders;
 using WebAPI.ViewModels.Sales;
 
+
 namespace WebAPI.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly IProductApiClient _productApiClient;
@@ -37,6 +39,7 @@ namespace WebAPI.Controllers
             return Ok(currentCart);
         }
 
+        
         public IActionResult Checkout()
         {
             return View(GetCheckoutViewModel());
@@ -73,6 +76,8 @@ namespace WebAPI.Controllers
             ClearCart();
             return View(model);
         }
+
+        [Authorize]
         private CheckoutViewModel GetCheckoutViewModel()
         {
             var session = HttpContext.Session.GetString(SystemConstants.CartSession);

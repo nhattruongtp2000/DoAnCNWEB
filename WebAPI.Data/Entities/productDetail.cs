@@ -16,19 +16,19 @@ namespace WebAPI.Data.Entities
         [Required]
         public int ProductId { get; set; }
         [Required]
-        [Column(TypeName = "VARCHAR(200)")]
+        [Column(TypeName = "NVARCHAR(200)")]
         public string ProductName { get; set; }
         [Required]
-        [Column(TypeName = "VARCHAR(200)")]
+        [Column(TypeName = "NVARCHAR(200)")]
         public decimal   price                     {get;set;}
         [Required]
-        [Column(TypeName = "VARCHAR(200)")]
+        [Column(TypeName = "NVARCHAR(200)")]
         public decimal salePrice                 {get;set;}
 
         public string LanguageId { set; get; }
 
         [Required]
-        [Column(TypeName = "VARCHAR(2000)")]
+        [Column(TypeName = "NVARCHAR(2000)")]
         public string detail                    {get;set;}
 
         [DefaultValue(false)]
